@@ -1,6 +1,6 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
-Description: Pecuniary application
+Description: Pecuniary Account Command services
 
 Parameters:
   AppName:
@@ -16,7 +16,7 @@ Globals:
     Timeout: 30
 
 Resources:
-  CommandAccountWebApi:
+  AccountCommandWebApi:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: pecuniary-AccountCommand
@@ -42,12 +42,12 @@ Resources:
               - dynamodb:UpdateTable
             Resource:
               - Fn::ImportValue:
-                  !Sub ${PecuniaryStackParameter}-PecuniaryDynamoDbTableArn
+                  !Sub ${PecuniaryStackParameter}-PecuniaryDynamoDbEventStoreArn
       Environment:
         Variables:
           EventStoreTableName:
             Fn::ImportValue:
-              !Sub ${PecuniaryStackParameter}-PecuniaryDynamoDbTable
+              !Sub ${PecuniaryStackParameter}-PecuniaryDynamoDbEventStore
       Events:
         CreateAccount:
           Type: Api
