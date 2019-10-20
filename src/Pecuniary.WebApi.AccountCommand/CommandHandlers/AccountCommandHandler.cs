@@ -43,6 +43,8 @@ namespace Pecuniary.WebApi.AccountCommand.CommandHandlers
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
+            Logger.Log($"Looking for aggregate: {command.Id}");
+
             var aggregate = _repository.GetById(command.Id);
 
             Logger.Log($"Found existing aggregate to update: {aggregate.Id}");

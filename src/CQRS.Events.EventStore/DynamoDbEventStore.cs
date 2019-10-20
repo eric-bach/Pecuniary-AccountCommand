@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Reflection;
 using System.Threading.Tasks;
 using Amazon;
@@ -32,6 +33,8 @@ namespace CQRS.Events.EventStore
 
         public async Task<IEnumerable<Event>> GetEventsAsync(Guid aggregateId)
         {
+            Logger.Log($"Scanning DynamoDB for aggregate: {aggregateId}");
+
             // Read events from DynamoDB
             var request = new QueryRequest
             {
@@ -44,6 +47,8 @@ namespace CQRS.Events.EventStore
             };
 
             var response = await _dynamoDbClient.QueryAsync(request);
+
+            Logger.Log($"Found items: {response.Items.Count}");
 
             return GetEventsFromDynamoDbResponse(response.Items);
         }
@@ -141,7 +146,7 @@ namespace CQRS.Events.EventStore
                 if (type == typeof(Snapshot)) continue;
 
                 var @event = JsonConvert.DeserializeObject(item.FirstOrDefault(i => i.Key == nameof(Event)).Value.S, type);
-
+                
                 events.Add((Event)@event);
             }
 

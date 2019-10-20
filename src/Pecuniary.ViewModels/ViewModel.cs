@@ -7,7 +7,6 @@ namespace Pecuniary.ViewModels
     public class ViewModel
     {
         [HiddenInput(DisplayValue = false)]
-        [JsonIgnore]
         public Guid Id { get; set; }
 
         [HiddenInput(DisplayValue = false)]
