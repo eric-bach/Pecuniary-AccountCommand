@@ -25,20 +25,20 @@ namespace Pecuniary.WebApi.AccountCommand.Controllers
         {
             Logger.Log($"Received {nameof(CreateAccountCommand)}");
 
-            vm.Id = Guid.NewGuid();
+            var id = Guid.NewGuid();
             
             try
             {
-                _mediator.Send(new CreateAccountCommand(vm));
+                _mediator.Send(new CreateAccountCommand(id, vm));
             }
             catch (Exception e)
             {
-                return BadRequest(new CommandResponse { Id = vm.Id, Error= e.Message});
+                return BadRequest(new CommandResponse { Id = id, Error= e.Message});
             }
 
             Logger.Log($"Completed processing {nameof(CreateAccountCommand)}");
 
-            return Ok(new CommandResponse {Id = vm.Id, Name = nameof(CreateAccountCommand)});
+            return Ok(new CommandResponse {Id = id, Name = nameof(CreateAccountCommand)});
         }
 
         // PUT api/acccount/5
@@ -47,19 +47,18 @@ namespace Pecuniary.WebApi.AccountCommand.Controllers
         {
             Logger.Log($"Received {nameof(UpdateAccountCommand)}");
 
-            vm.Id = id;
             try
             {
-                _mediator.Send(new UpdateAccountCommand(vm));
+                _mediator.Send(new UpdateAccountCommand(id, vm));
             }
             catch (Exception e)
             {
-                return BadRequest(new CommandResponse { Id = vm.Id, Error = e.Message });
+                return BadRequest(new CommandResponse { Id = id, Error = e.Message });
             }
 
             Logger.Log($"Completed processing {nameof(UpdateAccountCommand)}");
 
-            return Ok(new CommandResponse { Id = vm.Id, Name = nameof(UpdateAccountCommand) });
+            return Ok(new CommandResponse { Id = id, Name = nameof(UpdateAccountCommand) });
         }
     }
 }

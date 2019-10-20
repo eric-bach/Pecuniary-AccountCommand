@@ -1,4 +1,5 @@
-﻿using CQRS.Common.Events;
+﻿using System;
+using CQRS.Common.Events;
 using Pecuniary.ViewModels;
 
 namespace Pecuniary.Events.Account
@@ -11,10 +12,11 @@ namespace Pecuniary.Events.Account
         {
         }
 
-        public AccountCreatedEvent(AccountViewModel account) : base(nameof(AccountCreatedEvent))
+        public AccountCreatedEvent(Guid id, AccountViewModel account) : base(nameof(AccountCreatedEvent))
         {
-            Account.EventName = nameof(AccountCreatedEvent);
-            Account.Id = Id = account.Id;
+            Id = id;
+            EventName = nameof(AccountCreatedEvent);
+
             Account.Name = account.Name;
             Account.AccountTypeCode = account.AccountTypeCode;
         }

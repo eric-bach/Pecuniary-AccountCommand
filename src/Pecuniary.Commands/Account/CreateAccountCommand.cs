@@ -10,7 +10,7 @@ namespace Pecuniary.Commands.Account
     {
         public AccountViewModel Account { get; set; }
 
-        public CreateAccountCommand(AccountViewModel account) : base(account.Id)
+        public CreateAccountCommand(Guid id, AccountViewModel account) : base(id)
         {
             if (string.IsNullOrEmpty(account.Name))
                 throw new Exception("Name is required");

@@ -21,39 +21,36 @@ namespace Pecuniary.WebApi.AccountCommand.Models
         {
             var accountViewModel = new AccountViewModel
             {
-                Id = id,
-                EventName = nameof(AccountCreatedEvent),
                 Name = vm.Name,
                 AccountTypeCode = vm.AccountTypeCode
             };
 
-            ApplyChange(new AccountCreatedEvent(accountViewModel));
+            ApplyChange(new AccountCreatedEvent(id, accountViewModel));
         }
 
         public void UpdateAccount(AccountViewModel vm, int version)
         {
             var accountViewModel = new AccountViewModel
             {
-                Id = vm.Id,
-                EventName = nameof(AccountUpdatedEvent),
                 Name = vm.Name,
                 AccountTypeCode = vm.AccountTypeCode
             };
 
-            ApplyChange(new AccountUpdatedEvent(accountViewModel));
+            ApplyChange(new AccountUpdatedEvent(Id, accountViewModel));
         }
 
         public void Handle(AccountCreatedEvent e)
         {
-            Id = e.Account.Id;
+            Id = e.Id;
             Name = e.Account.Name;
             AccountTypeCode = e.Account.AccountTypeCode;
-
+            
             Version = e.Version;
         }
 
         public void Handle(AccountUpdatedEvent e)
         {
+            Id = e.Id;
             Name = e.Account.Name;
             AccountTypeCode = e.Account.AccountTypeCode;
         }
