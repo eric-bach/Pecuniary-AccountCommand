@@ -1,0 +1,63 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: Pecuniary application
+
+Parameters:
+  AppName:
+    Description: Application name
+    Type: String
+    Default: Pecuniary
+  PecuniaryStackParameter:
+    Type: String
+    Default: pecuniary-stack
+
+Globals:
+  Function:
+    Timeout: 30
+
+Resources:
+  CommandAccountWebApi:
+    Type: AWS::Serverless::Function
+    Properties:
+      FunctionName: pecuniary-AccountCommand
+      Handler: Pecuniary.WebApi.AccountCommand::Pecuniary.WebApi.AccountCommand.LambdaEntryPoint::FunctionHandlerAsync
+      Runtime: dotnetcore2.1
+      CodeUri: src/Pecuniary.WebApi.AccountCommand/bin/Debug/netcoreapp2.1/publish
+      MemorySize: 384
+      Policies:
+        - Statement:
+          - Effect: Allow
+            Action:
+              - dynamodb:ListTables
+              - dynamodb:DescribeTable
+              - dynamodb:GetItem
+              - dynamodb:GetRecords
+              - dynamodb:Query
+              - dynamodb:Scan
+              - dynamodb:CreateTable
+              - dynamodb:DeleteItem
+              - dynamodb:DeleteTable
+              - dynamodb:PutItem
+              - dynamodb:UpdateItem
+              - dynamodb:UpdateTable
+            Resource:
+              - Fn::ImportValue:
+                  !Sub ${PecuniaryStackParameter}-PecuniaryDynamoDbTableArn
+      Environment:
+        Variables:
+          EventStoreTableName:
+            Fn::ImportValue:
+              !Sub ${PecuniaryStackParameter}-PecuniaryDynamoDbTable
+      Events:
+        CreateAccount:
+          Type: Api
+          Properties:
+            Path: /api/account
+            Method: POST
+        UpdateAccount:
+          Type: Api
+          Properties:
+            Path: /api/account/{id}
+            Method: PUT
+      Tags:
+        AppName: !Ref AppName

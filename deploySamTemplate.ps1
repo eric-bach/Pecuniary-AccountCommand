@@ -1,0 +1,70 @@
+[CmdletBinding()]
+param (
+    [Parameter(Mandatory=$true, HelpMessage="Enter your config name defined in developers.json: ")][string]$configName,
+    $skipBuild
+)
+
+$environment = Get-Content 'developers.json' | Out-String | ConvertFrom-Json
+$stageEnvironment = Get-Content 'stage.json' | Out-String | ConvertFrom-Json
+
+$config = $environment.$configName
+$stageConfig = $stageEnvironment.Parameters
+
+$developerPrefix = $config.Prefix
+
+Write-Host "`Parameters from " -NoNewline
+Write-Host "developers.json:`n" -ForegroundColor Cyan
+Write-Host "`tdeveloperPrefix: `t`t $developerPrefix" -ForegroundColor Yellow
+
+$sourceFile = "samTemplate.yaml"
+$localFileName = "$sourceFile.local"
+Write-Host "`nCreating/updating $localFileName based on $sourceFile..."
+
+Copy-Item samTemplate.yaml $localFileName
+
+if ($config.Prefix) # Is a Developer
+{  
+    Write-Host "`n`tDeveloper config selected" -ForegroundColor Yellow
+
+    (Get-Content $localFileName) `
+        -replace 'pecuniary-', "$developerPrefix-pecuniary-" `
+        -replace 'Name: pecuniary', "Name: $developerPrefix-pecuniary" |
+    Out-File $localFileName -Encoding utf8
+}
+
+Write-Host "`nDone! $localFileName updated. Please use this file when deploying to our own AWS stack.`n"
+
+if (!$config.Prefix) { exit 0 } # Is Staging or Production
+
+Write-Host "Press [enter] to continue deploying stack to AWS (Ctrl+C to exit)" -NoNewline -ForegroundColor Green
+Read-Host
+
+$samTemplate = 'samTemplate.yaml.local'
+
+if ($skipBuild)
+{
+    Write-Host "Skipping build"
+}
+else
+{
+    Write-Host "`n`nPrebuild:"
+    
+    # Account service
+    dotnet restore src/Pecuniary.WebApi.AccountCommand/Pecuniary.WebApi.AccountCommand.csproj
+    
+    Write-Host "`n`nBuild:"
+    
+    # Account service
+    dotnet publish src/Pecuniary.WebApi.AccountCommand/Pecuniary.WebApi.AccountCommand.csproj
+}
+  
+Write-Host "`n`nDeploy:"
+
+dotnet-lambda deploy-serverless `
+    --stack-name $developerPrefix-pecuniary-accountcommand-stack `
+    --template $samTemplate `
+    --region us-west-2 `
+    --s3-prefix $developerPrefix- `
+    --s3-bucket pecuniary-deployment-artifacts
+
+Write-Host "`n`n YOUR STACK NAME IS:   $developerPrefix-pecuniary-accountcommand-stack   `n`n"

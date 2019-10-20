@@ -1,0 +1,13 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CQRS.Events.EventStore\CQRS.Events.EventStore.csproj" />
+    <ProjectReference Include="..\Global.Common\Global.Common.csproj" />
+    <ProjectReference Include="..\Logging.LambdaLogger\Logging.LambdaLogger.csproj" />
+  </ItemGroup>
+
+</Project>
