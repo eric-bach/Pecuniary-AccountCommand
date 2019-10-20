@@ -47,6 +47,7 @@ namespace Pecuniary.WebApi.AccountCommand.Models
         {
             Id = e.Account.Id;
             Name = e.Account.Name;
+            AccountTypeCode = e.Account.AccountTypeCode;
 
             Version = e.Version;
         }
@@ -54,6 +55,7 @@ namespace Pecuniary.WebApi.AccountCommand.Models
         public void Handle(AccountUpdatedEvent e)
         {
             Name = e.Account.Name;
+            AccountTypeCode = e.Account.AccountTypeCode;
         }
 
         public Snapshot GetSnapshot()
