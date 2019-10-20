@@ -1,5 +1,5 @@
 ﻿using System;
-using Logging.LambdaLogger;
+using EricBach.LambdaLogger;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Pecuniary.Commands.Account;

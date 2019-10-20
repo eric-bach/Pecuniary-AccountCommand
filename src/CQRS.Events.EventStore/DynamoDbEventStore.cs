@@ -8,11 +8,12 @@ using Amazon;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DocumentModel;
 using Amazon.DynamoDBv2.Model;
+using Amazon.Runtime.Internal.Util;
 using CQRS.Common.Aggregate;
 using CQRS.Common.Events;
 using CQRS.Events.EventStore.Snapshots;
 using Newtonsoft.Json;
-using Logger = Logging.LambdaLogger.Logger;
+using Logger = EricBach.LambdaLogger.Logger;
 
 namespace CQRS.Events.EventStore
 {

@@ -5,8 +5,8 @@ using CQRS.Common.Aggregate;
 using CQRS.Common.Events;
 using CQRS.Events.EventStore;
 using CQRS.Events.EventStore.Snapshots;
+using EricBach.LambdaLogger;
 using Global.Common.Exceptions;
-using Logger = Logging.LambdaLogger.Logger;
 
 namespace CQRS.Events.Repository
 {

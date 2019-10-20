@@ -6,6 +6,7 @@
 
   <ItemGroup>
     <PackageReference Include="Amazon.Lambda.AspNetCoreServer" Version="3.0.3" />
+    <PackageReference Include="EricBach.LambdaLogger" Version="1.0.0" />
     <PackageReference Include="MediatR" Version="6.0.0" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
   </ItemGroup>
@@ -13,7 +14,6 @@
   <ItemGroup>
     <ProjectReference Include="..\CQRS.Events.Repository\CQRS.Events.Repository.csproj" />
     <ProjectReference Include="..\Global.Common\Global.Common.csproj" />
-    <ProjectReference Include="..\Logging.LambdaLogger\Logging.LambdaLogger.csproj" />
     <ProjectReference Include="..\Pecuniary.Commands\Pecuniary.Commands.csproj" />
     <ProjectReference Include="..\Pecuniary.Events\Pecuniary.Events.csproj" />
     <ProjectReference Include="..\Pecuniary.ViewModels\Pecuniary.ViewModels.csproj" />

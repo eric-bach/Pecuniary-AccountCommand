@@ -2,7 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using CQRS.Events.Repository;
-using Logging.LambdaLogger;
+using EricBach.LambdaLogger;
 using MediatR;
 using Pecuniary.Commands.Account;
 using Account = Pecuniary.WebApi.AccountCommand.Models.Account;
