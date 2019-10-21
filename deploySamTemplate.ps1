@@ -50,12 +50,12 @@ else
     Write-Host "`n`nPrebuild:"
     
     # Account service
-    dotnet restore src/Pecuniary.WebApi.AccountCommand/Pecuniary.WebApi.AccountCommand.csproj
+    dotnet restore src/Pecuniary.Account.Command/Pecuniary.Account.Command.csproj
     
     Write-Host "`n`nBuild:"
     
     # Account service
-    dotnet publish src/Pecuniary.WebApi.AccountCommand/Pecuniary.WebApi.AccountCommand.csproj
+    dotnet publish src/Pecuniary.Account.Command/Pecuniary.Account.Command.csproj
 }
   
 Write-Host "`n`nDeploy:"

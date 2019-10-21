@@ -2,10 +2,10 @@ version: 0.2
 phases:
   pre_build:
     commands:
-      - dotnet restore src/Pecuniary.WebApi.AccountCommand/Pecuniary.WebApi.AccountCommand.csproj
+      - dotnet restore src/Pecuniary.Account.Command/Pecuniary.Account.Command.csproj
   build:
     commands:
-      - dotnet publish src/Pecuniary.WebApi.AccountCommand/Pecuniary.WebApi.AccountCommand.csproj
+      - dotnet publish src/Pecuniary.Account.Command/Pecuniary.Account.Command.csproj
   post_build:
     commands:
       #- dotnet vstest test/Ama.Rewards.Loyalty.WebApi.Balance.Tests/bin/Debug/netcoreapp2.1/publish/Ama.Rewards.Loyalty.WebApi.Balance.Tests.dll
@@ -18,4 +18,4 @@ artifacts:
     - stage.json
     #- prod.json
 
-    - src/Pecuniary.WebApi.AccountCommand/bin/**/*
+    - src/Pecuniary.Account.Command/bin/**/*

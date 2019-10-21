@@ -45,9 +45,9 @@ Resources:
     Type: AWS::Serverless::Function
     Properties:
       FunctionName: pecuniary-AccountCommand
-      Handler: Pecuniary.WebApi.AccountCommand::Pecuniary.WebApi.AccountCommand.LambdaEntryPoint::FunctionHandlerAsync
+      Handler: Pecuniary.Account.Command::Pecuniary.Account.Command.LambdaEntryPoint::FunctionHandlerAsync
       Runtime: dotnetcore2.1
-      CodeUri: src/Pecuniary.WebApi.AccountCommand/bin/Debug/netcoreapp2.1/publish
+      CodeUri: src/Pecuniary.Account.Command/bin/Debug/netcoreapp2.1/publish
       MemorySize: 384
       Policies:
         - Statement:
