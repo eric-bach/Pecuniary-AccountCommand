@@ -11,11 +11,36 @@ Parameters:
     Type: String
     Default: pecuniary-stack
 
+Mappings:
+  Constants:
+    Application: 
+      Name: Pecuniary
+
 Globals:
   Function:
     Timeout: 30
 
 Resources:
+  PecuniaryWebApi:
+    Type: AWS::Serverless::Api
+    Properties:
+      StageName: Prod
+      Cors:
+        AllowHeaders: "'Content-Type,X-Amz-Date,Authorization,X-Api-Key,X-Amz-Security-Token'"
+      Auth:
+        Authorizers:
+          CognitoAuthorizer:
+            UserPoolArn: 
+                Fn::Sub:
+                    - arn:aws:cognito-idp:${AWS::Region}:${AWS::AccountId}:userpool/${UserPoolId}
+                    - UserPoolId:
+                        Fn::ImportValue:
+                          !Sub ${PecuniaryStackParameter}-PecuniaryCognitoUserPoolId
+            Identity:
+              Header: Authorization
+      Tags:
+        AppName: !FindInMap [Constants, Application, Name]
+
   AccountCommandWebApi:
     Type: AWS::Serverless::Function
     Properties:
@@ -52,12 +77,18 @@ Resources:
         CreateAccount:
           Type: Api
           Properties:
+            RestApiId: !Ref PecuniaryWebApi
             Path: /api/account
             Method: POST
+            Auth:
+              Authorizer: CognitoAuthorizer
         UpdateAccount:
           Type: Api
           Properties:
+            RestApiId: !Ref PecuniaryWebApi
             Path: /api/account/{id}
             Method: PUT
+            Auth:
+              Authorizer: CognitoAuthorizer
       Tags:
         AppName: !Ref AppName
