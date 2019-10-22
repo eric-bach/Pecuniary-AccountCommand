@@ -92,3 +92,10 @@ Resources:
               Authorizer: CognitoAuthorizer
       Tags:
         AppName: !Ref AppName
+
+Outputs:
+  PecuniaryApiGatewayBaseUrl:
+    Description: Base Url of the Pecuniary API Gateway
+    Value: !Ref PecuniaryWebApi
+    Export:
+      Name: !Sub ${AWS::StackName}-PecuniaryApiGatewayBaseUrl

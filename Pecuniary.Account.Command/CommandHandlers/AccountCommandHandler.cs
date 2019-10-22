@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using EricBach.CQRS.Repository;
+using EricBach.CQRS.EventRepository;
 using EricBach.LambdaLogger;
 using MediatR;
 using Pecuniary.Account.Data.Commands;

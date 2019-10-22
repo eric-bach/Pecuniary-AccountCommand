@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
+using EricBach.CQRS.EventRepository;
 using EricBach.CQRS.EventStore;
-using EricBach.CQRS.Repository;
 using EricBach.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -61,7 +61,7 @@ namespace Pecuniary.Account.Command
             services.AddScoped<IEventStore, DynamoDbEventStore>();
 
             // Command Service
-            services.AddScoped<IEventRepository<Account.Data.Models.Account>, EventRepository<Account.Data.Models.Account>>();
+            services.AddScoped<IEventRepository<Data.Models.Account>, EventRepository<Data.Models.Account>>();
             //services.AddScoped<AccountSnapshot, AccountSnapshot>();
         }
     }

@@ -1,0 +1,22 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
+    <AssemblyName>Pecuniary.Account.Command</AssemblyName>
+    <RootNamespace>Pecuniary.Account.Command</RootNamespace>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Amazon.Lambda.AspNetCoreServer" Version="3.1.0" />
+    <PackageReference Include="EricBach.DependencyInjection" Version="1.0.0" />
+    <PackageReference Include="EricBach.CQRS.EventRepository" Version="1.0.0" />
+    <PackageReference Include="EricBach.LambdaLogger" Version="1.0.0" />
+    <PackageReference Include="MediatR" Version="6.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.App" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Pecuniary.Account.Data\Pecuniary.Account.Data.csproj" />
+  </ItemGroup>
+
+</Project>

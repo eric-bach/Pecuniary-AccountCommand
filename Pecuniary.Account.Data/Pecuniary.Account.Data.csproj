@@ -1,16 +1,14 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>netcoreapp2.1</TargetFramework>
+    <TargetFramework>netcoreapp2.2</TargetFramework>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.Mvc.DataAnnotations" Version="2.1.3" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <ProjectReference Include="..\EricBach.CQRS.EventStore\EricBach.CQRS.EventStore.csproj" />
-    <ProjectReference Include="..\EricBach.CQRS\EricBach.CQRS.csproj" />
+    <PackageReference Include="MediatR" Version="6.0.0" />
+    <PackageReference Include="EricBach.CQRS" Version="1.0.0" />
+    <PackageReference Include="EricBach.CQRS.EventStore" Version="1.0.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Mvc.DataAnnotations" Version="2.2.0" />
   </ItemGroup>
 
   <ItemGroup>

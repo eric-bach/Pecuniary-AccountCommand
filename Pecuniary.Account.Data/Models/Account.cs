@@ -8,7 +8,7 @@ using Snapshot = EricBach.CQRS.EventStore.Snapshots.Snapshot;
 
 namespace Pecuniary.Account.Data.Models
 {
-    public class Account : AggregateRoot, IEventHandler<AccountCreatedEvent>, IEventHandler<AccountUpdatedEvent>, EricBach.CQRS.EventStore.Snapshots.ISnapshot
+    public class Account : AggregateRoot, IEventHandler<AccountCreatedEvent>, IEventHandler<AccountUpdatedEvent>, ISnapshot
     {
         public string Name { get; set; }
         public string AccountTypeCode { get; set; }

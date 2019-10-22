@@ -67,4 +67,18 @@ dotnet-lambda deploy-serverless `
     --s3-prefix $developerPrefix- `
     --s3-bucket pecuniary-deployment-artifacts
 
+
+# Get the API Gateway Base URL
+$stack = aws cloudformation describe-stacks --stack-name $developerPrefix-pecuniary-accountcommand-stack | ConvertFrom-Json
+$outputKey = $stack.Stacks.Outputs.OutputKey.IndexOf("PecuniaryApiGatewayBaseUrl")
+$apiGatewayBaseUrl = $stack.Stacks.Outputs.Outputs[$outputKey].OutputValue
+# Add scopes
+Write-Host "`n`Adding Scopes:"
+aws lambda invoke `
+    --function-name "$developerPrefix-pecuniary-AddScopes" `
+    --payload "{ "ApiGatewayBaseUrl": "$apiGatewayBaseUrl" }" `
+    addingScopeDummyOutputFile.txt
+Remove-Item addingScopeDummyOutputFile.txt
+
+
 Write-Host "`n`n YOUR STACK NAME IS:   $developerPrefix-pecuniary-accountcommand-stack   `n`n"
