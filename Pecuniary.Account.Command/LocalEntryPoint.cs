@@ -1,4 +1,9 @@
-﻿using Microsoft.AspNetCore;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
 namespace Pecuniary.Account.Command
@@ -15,11 +20,6 @@ namespace Pecuniary.Account.Command
 
         public static IWebHost BuildWebHost(string[] args) =>
             WebHost.CreateDefaultBuilder(args)
-                //.ConfigureServices(services =>
-                //{
-                //    services.AddScoped<ISecretsRepository, SecretsRepository>();
-                //})
-                .UseUrls("http://*:80")
                 .UseStartup<Startup>()
                 .Build();
     }

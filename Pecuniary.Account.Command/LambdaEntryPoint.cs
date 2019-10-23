@@ -1,4 +1,10 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Net;
+using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace Pecuniary.Account.Command
 {
@@ -6,9 +12,12 @@ namespace Pecuniary.Account.Command
     /// This class extends from APIGatewayProxyFunction which contains the method FunctionHandlerAsync which is the 
     /// actual Lambda function entry point. The Lambda handler field should be set to
     /// 
-    /// Ama.Rewards.Loyalty.WebApi.Transaction::Ama.Rewards.Loyalty.WebApi.Transaction.LambdaEntryPoint::FunctionHandlerAsync
+    /// Pecuniary.Account.Command::Pecuniary.Account.Command.LambdaEntryPoint::FunctionHandlerAsync
     /// </summary>
-    public class LambdaEntryPoint : Amazon.Lambda.AspNetCoreServer.APIGatewayProxyFunction
+    public class LambdaEntryPoint :
+        // When using an ELB's Application Load Balancer as the event source change 
+        // the base class to Amazon.Lambda.AspNetCoreServer.ApplicationLoadBalancerFunction
+        Amazon.Lambda.AspNetCoreServer.APIGatewayProxyFunction
     {
         /// <summary>
         /// The builder has configuration, logging and Amazon API Gateway already configured. The startup class
@@ -18,10 +27,6 @@ namespace Pecuniary.Account.Command
         protected override void Init(IWebHostBuilder builder)
         {
             builder
-                //.ConfigureServices(services =>
-                //{
-                //    services.AddScoped<ISecretsRepository, SecretsRepository>();
-                //})
                 .UseStartup<Startup>();
         }
     }

@@ -263,3 +263,4 @@ __pycache__/
 *.pyc
 mo-*
 /samTemplate.yaml.local
+outfile.json

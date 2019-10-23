@@ -50,12 +50,12 @@ else
     Write-Host "`n`nPrebuild:"
     
     # Account service
-    dotnet restore src/Pecuniary.Account.Command/Pecuniary.Account.Command.csproj
+    dotnet restore Pecuniary.Account.Command/Pecuniary.Account.Command.csproj
     
     Write-Host "`n`nBuild:"
     
     # Account service
-    dotnet publish src/Pecuniary.Account.Command/Pecuniary.Account.Command.csproj
+    dotnet publish Pecuniary.Account.Command/Pecuniary.Account.Command.csproj
 }
   
 Write-Host "`n`nDeploy:"
@@ -67,18 +67,18 @@ dotnet-lambda deploy-serverless `
     --s3-prefix $developerPrefix- `
     --s3-bucket pecuniary-deployment-artifacts
 
-
 # Get the API Gateway Base URL
 $stack = aws cloudformation describe-stacks --stack-name $developerPrefix-pecuniary-accountcommand-stack | ConvertFrom-Json
 $outputKey = $stack.Stacks.Outputs.OutputKey.IndexOf("PecuniaryApiGatewayBaseUrl")
-$apiGatewayBaseUrl = $stack.Stacks.Outputs.Outputs[$outputKey].OutputValue
+$apiGatewayBaseUrl = $stack.Stacks.Outputs[$outputKey].OutputValue
+
 # Add scopes
-Write-Host "`n`Adding Scopes:"
+Write-Host "`n`Adding Scopes to $apiGatewayBaseUrl"
 aws lambda invoke `
     --function-name "$developerPrefix-pecuniary-AddScopes" `
-    --payload "{ "ApiGatewayBaseUrl": "$apiGatewayBaseUrl" }" `
-    addingScopeDummyOutputFile.txt
-Remove-Item addingScopeDummyOutputFile.txt
-
+    --payload """{ """"ApiGatewayBaseUrl"""": """"$apiGatewayBaseUrl"""" }""" `
+    outfile.json
+Remove-Item outfile.json
 
 Write-Host "`n`n YOUR STACK NAME IS:   $developerPrefix-pecuniary-accountcommand-stack   `n`n"
+ 
