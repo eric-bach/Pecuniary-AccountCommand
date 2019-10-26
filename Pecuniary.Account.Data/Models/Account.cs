@@ -46,6 +46,7 @@ namespace Pecuniary.Account.Data.Models
             AccountTypeCode = e.Account.AccountTypeCode;
             
             Version = e.Version;
+            EventVersion = e.EventVersion;
         }
 
         public void Handle(AccountUpdatedEvent e)
@@ -57,7 +58,7 @@ namespace Pecuniary.Account.Data.Models
 
         public Snapshot GetSnapshot()
         {
-            return new AccountSnapshot(Id, Name, Version);
+            return new AccountSnapshot(Id, Name, Version, EventVersion);
         }
 
         public void SetSnapshot(Snapshot snapshot)
@@ -66,6 +67,7 @@ namespace Pecuniary.Account.Data.Models
 
             Id = snapshot.Id;
             Version = snapshot.Version;
+            EventVersion = snapshot.EventVersion;
         }
     }
 }

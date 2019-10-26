@@ -6,15 +6,16 @@ namespace Pecuniary.Account.Data.Events
 {
     public class AccountUpdatedEvent : Event
     {
-        public AccountViewModel Account { get; internal set; } = new AccountViewModel();
+        private const int _eventVersion = 1;
 
-        public AccountUpdatedEvent(Guid id, AccountViewModel account) : base(nameof(AccountUpdatedEvent))
+        public AccountViewModel Account { get; internal set; }
+
+        public AccountUpdatedEvent(Guid id, AccountViewModel account) : base(nameof(AccountUpdatedEvent), _eventVersion)
         {
             Id = id;
             EventName = nameof(AccountUpdatedEvent);
 
-            Account.Name = account.Name;
-            Account.AccountTypeCode = account.AccountTypeCode;
+            Account = account;
         }
     }
 }
