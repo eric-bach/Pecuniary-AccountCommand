@@ -1,9 +1,9 @@
 ﻿using System;
+using EricBach.CQRS.Commands;
 using EricBach.LambdaLogger;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Pecuniary.Account.Data.Commands;
-using Pecuniary.Account.Data.Responses;
 using Pecuniary.Account.Data.ViewModels;
 
 namespace Pecuniary.Account.Command.Controllers
