@@ -1,5 +1,6 @@
 ﻿using System;
 using EricBach.CQRS.Commands;
+using EricBach.CQRS.EventRepository;
 using EricBach.LambdaLogger;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
@@ -13,10 +14,12 @@ namespace Pecuniary.Account.Command.Controllers
     public class AccountController : ControllerBase
     {
         private readonly IMediator _mediator;
+        private readonly IEventRepository<Data.Models.Account> AccountRepository;
 
-        public AccountController(IMediator mediator)
+        public AccountController(IMediator mediator, IEventRepository<Data.Models.Account> accountRepository)
         {
             _mediator = mediator ?? throw new ArgumentNullException(nameof(mediator));
+            AccountRepository = accountRepository ?? throw new InvalidOperationException($"{nameof(Account)}Repository is not initialized.");
         }
 
         // POST api/account
@@ -49,7 +52,7 @@ namespace Pecuniary.Account.Command.Controllers
 
             try
             {
-                _mediator.Send(new UpdateAccountCommand(id, vm));
+                _mediator.Send(new UpdateAccountCommand(id, vm, AccountRepository));
             }
             catch (Exception e)
             {

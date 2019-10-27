@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using EricBach.CQRS.Commands;
+using EricBach.CQRS.EventRepository;
 using MediatR;
 using Pecuniary.Account.Data.ViewModels;
 
@@ -10,7 +11,7 @@ namespace Pecuniary.Account.Data.Commands
     {
         public AccountViewModel Account { get; set; }
 
-        public UpdateAccountCommand(Guid id, AccountViewModel account) : base(id)
+        public UpdateAccountCommand(Guid id, AccountViewModel account, IEventRepository<Models.Account> accountRepository) : base(id)
         {
             if (string.IsNullOrEmpty(account.Name))
                 throw new Exception("Name is required");
@@ -22,6 +23,11 @@ namespace Pecuniary.Account.Data.Commands
                 account.AccountTypeCode != "Unreg")
                 throw new Exception("Invalid AccountTypeCode. Must be one of values [LIRA, RESP, RRSP, TFSA, UnReg]");
 
+            // Validate that AccountId exists
+            var accountExists = accountRepository.VerifyAggregateExists(id);
+            if (!accountExists)
+                throw new Exception($"Account with Id {id} does not exist");
+            
             Account = account;
         }
     }
