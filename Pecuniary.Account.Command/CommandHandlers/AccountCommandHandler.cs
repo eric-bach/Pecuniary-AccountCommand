@@ -47,6 +47,9 @@ namespace Pecuniary.Account.Command.CommandHandlers
 
             var aggregate = _repository.GetById(command.Id);
 
+            if (aggregate.AccountTypeCode != command.Account.AccountTypeCode)
+                throw new Exception($"Requested AccountTypeCode [{command.Account.AccountTypeCode}] does not match existing AccountTypeCode [{aggregate.AccountTypeCode}]");
+
             Logger.Log($"Found existing aggregate to update: {aggregate.Id}");
 
             aggregate.UpdateAccount(command.Account);

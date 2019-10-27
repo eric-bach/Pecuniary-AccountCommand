@@ -33,7 +33,7 @@ namespace Pecuniary.Account.Command.Controllers
             }
             catch (Exception e)
             {
-                return BadRequest(new CommandResponse { Id = id, Error= e.Message});
+                return BadRequest(new CommandResponse { Error= e.Message});
             }
 
             Logger.Log($"Completed processing {nameof(CreateAccountCommand)}");
