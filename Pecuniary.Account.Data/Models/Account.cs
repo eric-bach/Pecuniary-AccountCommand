@@ -19,24 +19,12 @@ namespace Pecuniary.Account.Data.Models
 
         public Account(Guid id, AccountViewModel vm)
         {
-            var accountViewModel = new AccountViewModel
-            {
-                Name = vm.Name,
-                AccountTypeCode = vm.AccountTypeCode
-            };
-
-            ApplyChange(new AccountCreatedEvent(id, accountViewModel));
+            ApplyChange(new AccountCreatedEvent(id, vm));
         }
 
-        public void UpdateAccount(AccountViewModel vm, int version)
+        public void UpdateAccount(AccountViewModel vm)
         {
-            var accountViewModel = new AccountViewModel
-            {
-                Name = vm.Name,
-                AccountTypeCode = vm.AccountTypeCode
-            };
-
-            ApplyChange(new AccountUpdatedEvent(Id, accountViewModel));
+            ApplyChange(new AccountUpdatedEvent(Id, vm));
         }
 
         public void Handle(AccountCreatedEvent e)

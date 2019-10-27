@@ -49,7 +49,7 @@ namespace Pecuniary.Account.Command.CommandHandlers
 
             Logger.Log($"Found existing aggregate to update: {aggregate.Id}");
 
-            aggregate.UpdateAccount(command.Account, aggregate.Version);
+            aggregate.UpdateAccount(command.Account);
 
             Logger.Log($"Updated aggregate {aggregate.Id}");
 
