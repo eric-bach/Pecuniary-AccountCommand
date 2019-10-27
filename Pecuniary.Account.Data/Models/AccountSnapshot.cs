@@ -1,5 +1,5 @@
 ﻿using System;
-using EricBach.CQRS.EventStore.Snapshots;
+using EricBach.CQRS.EventRepository.Snapshots;
 
 namespace Pecuniary.Account.Data.Models
 {

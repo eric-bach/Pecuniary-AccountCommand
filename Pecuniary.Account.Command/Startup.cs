@@ -1,6 +1,6 @@
 ﻿using System.Reflection;
 using EricBach.CQRS.EventRepository;
-using EricBach.CQRS.EventStore;
+using EricBach.CQRS.EventRepository.EventStore;
 using EricBach.DependencyInjection;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

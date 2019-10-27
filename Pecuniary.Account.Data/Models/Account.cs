@@ -1,10 +1,9 @@
 ﻿using System;
 using EricBach.CQRS.Aggregate;
 using EricBach.CQRS.EventHandlers;
+using EricBach.CQRS.EventRepository.Snapshots;
 using Pecuniary.Account.Data.Events;
 using Pecuniary.Account.Data.ViewModels;
-using ISnapshot = EricBach.CQRS.EventStore.Snapshots.ISnapshot;
-using Snapshot = EricBach.CQRS.EventStore.Snapshots.Snapshot;
 
 namespace Pecuniary.Account.Data.Models
 {
