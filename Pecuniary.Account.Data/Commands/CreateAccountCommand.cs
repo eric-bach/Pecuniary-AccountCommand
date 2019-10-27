@@ -20,7 +20,7 @@ namespace Pecuniary.Account.Data.Commands
                 account.AccountTypeCode != "LIRA" && account.AccountTypeCode != "TFSA" &&
                 account.AccountTypeCode != "RESP" && account.AccountTypeCode != "RRSP" &&
                 account.AccountTypeCode != "Unreg")
-                throw new Exception("Invalid AccountTypeCode. Must be one of values [LIRA, RESP, RRSP, TFSA, UnReg");
+                throw new Exception("Invalid AccountTypeCode. Must be one of values [LIRA, RESP, RRSP, TFSA, UnReg]");
 
             Account = account;
         }
