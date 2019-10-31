@@ -2,8 +2,8 @@
 using EricBach.CQRS.Aggregate;
 using EricBach.CQRS.EventHandlers;
 using EricBach.CQRS.EventRepository.Snapshots;
+using Pecuniary.Account.Data.Commands;
 using Pecuniary.Account.Data.Events;
-using Pecuniary.Account.Data.ViewModels;
 
 namespace Pecuniary.Account.Data.Models
 {
@@ -16,12 +16,12 @@ namespace Pecuniary.Account.Data.Models
         {
         }
 
-        public Account(Guid id, AccountViewModel vm)
+        public Account(Guid id, CreateAccount vm)
         {
             ApplyChange(new AccountCreatedEvent(id, vm));
         }
 
-        public void UpdateAccount(AccountViewModel vm)
+        public void UpdateAccount(UpdateAccount vm)
         {
             ApplyChange(new AccountUpdatedEvent(Id, vm));
         }
@@ -40,12 +40,11 @@ namespace Pecuniary.Account.Data.Models
         {
             Id = e.Id;
             Name = e.Account.Name;
-            AccountTypeCode = e.Account.AccountTypeCode;
         }
 
         public Snapshot GetSnapshot()
         {
-            return new AccountSnapshot(Id, Name, Version, EventVersion);
+            return new AccountSnapshot(Id, Name, Version, EventVersion, Timestamp);
         }
 
         public void SetSnapshot(Snapshot snapshot)
@@ -55,6 +54,7 @@ namespace Pecuniary.Account.Data.Models
             Id = snapshot.Id;
             Version = snapshot.Version;
             EventVersion = snapshot.EventVersion;
+            Timestamp = snapshot.Timestamp;
         }
     }
 }

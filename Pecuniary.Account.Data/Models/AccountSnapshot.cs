@@ -11,12 +11,13 @@ namespace Pecuniary.Account.Data.Models
         {
         }
 
-        public AccountSnapshot(Guid id, string name, int version, int eventVersion)
+        public AccountSnapshot(Guid id, string name, int version, int eventVersion, DateTime timestamp)
         {
             Id = id;
             Name = name;
             Version = version;
             EventVersion = eventVersion;
+            Timestamp = timestamp;
         }
     }
 }

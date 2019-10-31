@@ -3,32 +3,21 @@ using System.Threading;
 using EricBach.CQRS.Commands;
 using EricBach.CQRS.EventRepository;
 using MediatR;
-using Pecuniary.Account.Data.ViewModels;
 
 namespace Pecuniary.Account.Data.Commands
 {
     public class UpdateAccountCommand : Command, IRequest<CancellationToken>
     {
-        public AccountViewModel Account { get; set; }
+        public UpdateAccount Account { get; set; }
 
-        public UpdateAccountCommand(Guid id, AccountViewModel account, IEventRepository<Models.Account> accountRepository) : base(id)
+        public UpdateAccountCommand(Guid id, UpdateAccount account, IEventRepository<Models.Account> eventRepository) : base(id)
         {
-            if (string.IsNullOrEmpty(account.Name))
-                throw new Exception("Name is required");
-
-            // TODO Figure out how to validate this from the "database" without making it a long synchronous call
-            if (string.IsNullOrEmpty(account.AccountTypeCode) ||
-                account.AccountTypeCode != "LIRA" && account.AccountTypeCode != "TFSA" &&
-                account.AccountTypeCode != "RESP" && account.AccountTypeCode != "RRSP" &&
-                account.AccountTypeCode != "Unreg")
-                throw new Exception("Invalid AccountTypeCode. Must be one of values [LIRA, RESP, RRSP, TFSA, UnReg]");
-
-            // Validate that AccountId exists
-            var accountExists = accountRepository.VerifyAggregateExists(id);
-            if (!accountExists)
-                throw new Exception($"Account with Id {id} does not exist");
-            
             Account = account;
         }
+    }
+
+    public class UpdateAccount
+    {
+        public string Name { get; set; }
     }
 }

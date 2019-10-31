@@ -5,16 +5,16 @@ using EricBach.CQRS.EventRepository;
 using EricBach.LambdaLogger;
 using MediatR;
 using Pecuniary.Account.Data.Commands;
-using Accounts = Pecuniary.Account.Data.Models.Account;
+using _Account = Pecuniary.Account.Data.Models.Account;
 
 namespace Pecuniary.Account.Command.CommandHandlers
 {
     public class AccountCommandHandlers : IRequestHandler<CreateAccountCommand, CancellationToken>,
         IRequestHandler<UpdateAccountCommand, CancellationToken>
     {
-        private readonly IEventRepository<Accounts> _repository;
+        private readonly IEventRepository<_Account> _repository;
 
-        public AccountCommandHandlers(IEventRepository<Account.Data.Models.Account> repository)
+        public AccountCommandHandlers(IEventRepository<_Account> repository)
         {
             _repository = repository ?? throw new InvalidOperationException("Repository is not initialized.");
         }
@@ -26,7 +26,7 @@ namespace Pecuniary.Account.Command.CommandHandlers
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
-            var aggregate = new Accounts(command.Id, command.Account);
+            var aggregate = new _Account(command.Id, command.Account);
 
             // Save to Event Store
             _repository.Save(aggregate, aggregate.Version);
@@ -47,10 +47,11 @@ namespace Pecuniary.Account.Command.CommandHandlers
 
             var aggregate = _repository.GetById(command.Id);
 
-            if (aggregate.AccountTypeCode != command.Account.AccountTypeCode)
-                throw new Exception($"Requested AccountTypeCode [{command.Account.AccountTypeCode}] does not match existing AccountTypeCode [{aggregate.AccountTypeCode}]");
-
             Logger.Log($"Found existing aggregate to update: {aggregate.Id}");
+
+            // Validate that AccountId exists
+            if (aggregate.Id == Guid.Empty)
+                throw new Exception($"Account with Id {aggregate.Id} does not exist");
 
             aggregate.UpdateAccount(command.Account);
 
