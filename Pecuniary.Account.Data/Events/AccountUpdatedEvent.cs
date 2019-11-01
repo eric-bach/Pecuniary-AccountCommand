@@ -1,6 +1,5 @@
 ﻿using System;
 using EricBach.CQRS.Events;
-using Pecuniary.Account.Data.Commands;
 using Pecuniary.Account.Data.Requests;
 
 namespace Pecuniary.Account.Data.Events

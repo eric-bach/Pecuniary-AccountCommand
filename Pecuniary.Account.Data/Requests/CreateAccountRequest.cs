@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Threading;
-using MediatR;
+using EricBach.CQRS.Requests;
 
 namespace Pecuniary.Account.Data.Requests
 {
