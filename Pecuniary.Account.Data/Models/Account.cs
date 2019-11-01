@@ -2,8 +2,8 @@
 using EricBach.CQRS.Aggregate;
 using EricBach.CQRS.EventHandlers;
 using EricBach.CQRS.EventRepository.Snapshots;
-using Pecuniary.Account.Data.Commands;
 using Pecuniary.Account.Data.Events;
+using Pecuniary.Account.Data.Requests;
 
 namespace Pecuniary.Account.Data.Models
 {
@@ -16,14 +16,14 @@ namespace Pecuniary.Account.Data.Models
         {
         }
 
-        public Account(Guid id, CreateAccount vm)
+        public Account(Guid id, CreateAccountRequest request)
         {
-            ApplyChange(new AccountCreatedEvent(id, vm));
+            ApplyChange(new AccountCreatedEvent(id, request));
         }
 
-        public void UpdateAccount(UpdateAccount vm)
+        public void UpdateAccount(UpdateAccountRequest request)
         {
-            ApplyChange(new AccountUpdatedEvent(Id, vm));
+            ApplyChange(new AccountUpdatedEvent(Id, request));
         }
 
         public void Handle(AccountCreatedEvent e)

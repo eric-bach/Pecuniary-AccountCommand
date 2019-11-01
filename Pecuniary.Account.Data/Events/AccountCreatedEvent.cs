@@ -1,6 +1,7 @@
 ﻿using System;
 using EricBach.CQRS.Events;
 using Pecuniary.Account.Data.Commands;
+using Pecuniary.Account.Data.Requests;
 
 namespace Pecuniary.Account.Data.Events
 {
@@ -8,13 +9,13 @@ namespace Pecuniary.Account.Data.Events
     {
         private const int _eventVersion = 1;
 
-        public CreateAccount Account { get; internal set; } = new CreateAccount();
+        public CreateAccountRequest Account { get; internal set; }
 
         public AccountCreatedEvent() : base(nameof(AccountCreatedEvent), _eventVersion)
         {
         }
 
-        public AccountCreatedEvent(Guid id, CreateAccount account) : base(nameof(AccountCreatedEvent), _eventVersion)
+        public AccountCreatedEvent(Guid id, CreateAccountRequest account) : base(nameof(AccountCreatedEvent), _eventVersion)
         {
             Id = id;
             EventName = nameof(AccountCreatedEvent);

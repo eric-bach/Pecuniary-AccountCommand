@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Threading;
-using MediatR;
 
 namespace Pecuniary.Account.Data.Requests
 {
-    public class UpdateAccountRequest : Request, IRequest<CancellationToken>
+    public class UpdateAccountRequest : Request
     {
         public string Name { get; set; }
 
-        public UpdateAccountRequest(Guid id, string name) : base(id)
+        public UpdateAccountRequest(Guid id) : base(id)
         {
-            Name = name;
         }
     }
 }

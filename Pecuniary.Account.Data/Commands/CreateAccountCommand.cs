@@ -2,23 +2,17 @@
 using System.Threading;
 using EricBach.CQRS.Commands;
 using MediatR;
+using Pecuniary.Account.Data.Requests;
 
 namespace Pecuniary.Account.Data.Commands
 {
     public class CreateAccountCommand : Command, IRequest<CancellationToken>
     {
-        public CreateAccount Account { get; set; }
+        public CreateAccountRequest Account { get; set; }
 
-        public CreateAccountCommand(Guid id, CreateAccount account) : base(id)
+        public CreateAccountCommand(Guid id, CreateAccountRequest account) : base(id)
         {
             Account = account;
         }
-    }
-
-    public class CreateAccount
-    {
-        public string Name { get; set; }
-
-        public string AccountTypeCode { get; set; }
     }
 }

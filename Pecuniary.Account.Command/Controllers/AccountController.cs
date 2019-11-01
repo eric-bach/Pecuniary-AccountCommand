@@ -3,6 +3,7 @@ using EricBach.CQRS.Commands;
 using EricBach.LambdaLogger;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Pecuniary.Account.Data.Commands;
 using Pecuniary.Account.Data.Requests;
 
 namespace Pecuniary.Account.Command.Controllers
@@ -20,7 +21,7 @@ namespace Pecuniary.Account.Command.Controllers
 
         // POST api/account
         [HttpPost]
-        public ActionResult<CommandResponse> Post([FromBody] CreateAccountRequest vm)
+        public ActionResult<CommandResponse> Post([FromBody] CreateAccountRequest request)
         {
             Logger.Log($"Received {nameof(CreateAccountRequest)}");
 
@@ -28,7 +29,7 @@ namespace Pecuniary.Account.Command.Controllers
             
             try
             {
-                _mediator.Send(new CreateAccountRequest(id, vm.Name, vm.AccountTypeCode));
+                _mediator.Send(new CreateAccountCommand(id, request));
             }
             catch (Exception e)
             {
@@ -37,18 +38,18 @@ namespace Pecuniary.Account.Command.Controllers
 
             Logger.Log($"Completed processing {nameof(CreateAccountRequest)}");
 
-            return Ok(new CommandResponse {Id = id, Name = nameof(CreateAccountRequest) });
+            return Ok(new CommandResponse {Id = id, Name = nameof(CreateAccountCommand) });
         }
 
         // PUT api/acccount/5
         [HttpPut("{id}")]
-        public ActionResult<CommandResponse> Put(Guid id, [FromBody] UpdateAccountRequest vm)
+        public ActionResult<CommandResponse> Put(Guid id, [FromBody] UpdateAccountRequest request)
         {
             Logger.Log($"Received {nameof(UpdateAccountRequest)}");
 
             try
             {
-                _mediator.Send(new UpdateAccountRequest(id, vm.Name));
+                _mediator.Send(new UpdateAccountCommand(id, request));
             }
             catch (Exception e)
             {
@@ -57,7 +58,7 @@ namespace Pecuniary.Account.Command.Controllers
 
             Logger.Log($"Completed processing {nameof(UpdateAccountRequest)}");
 
-            return Ok(new CommandResponse { Id = id, Name = nameof(UpdateAccountRequest) });
+            return Ok(new CommandResponse { Id = id, Name = nameof(UpdateAccountCommand) });
         }
     }
 }

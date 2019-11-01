@@ -26,6 +26,14 @@ namespace Pecuniary.Account.Command.CommandHandlers
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
 
+            if (string.IsNullOrEmpty(command.Account.Name))
+                throw new Exception($"{command.Account.Name} is required");
+
+            // TODO Figure out how to validate this from the "database" without making it a long synchronous call
+            if (string.IsNullOrEmpty(command.Account.AccountTypeCode) || command.Account.AccountTypeCode != "LIRA" && command.Account.AccountTypeCode != "TFSA" &&
+                command.Account.AccountTypeCode != "RESP" && command.Account.AccountTypeCode != "RRSP" && command.Account.AccountTypeCode != "Unreg")
+                throw new Exception("Invalid command.Account.AccountTypeCode. Must be one of values [LIRA, RESP, RRSP, TFSA, UnReg]");
+
             var aggregate = new _Account(command.Id, command.Account);
 
             // Save to Event Store
@@ -42,6 +50,9 @@ namespace Pecuniary.Account.Command.CommandHandlers
 
             if (command == null)
                 throw new ArgumentNullException(nameof(command));
+
+            if (string.IsNullOrEmpty(command.Account.Name))
+                throw new Exception($"{command.Account.Name} is required");
 
             Logger.Log($"Looking for aggregate: {command.Id}");
 
