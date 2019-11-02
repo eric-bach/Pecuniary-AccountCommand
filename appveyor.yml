@@ -20,8 +20,8 @@ after_build:
   # For once the build has completed
 artifacts:
  - path: '\Pecuniary.Account.Command\bin\Debug\netcoreapp2.1\publish'
-   name: WebSite
-   type: WebDeployPackage
+   name: artifact
+   type: zip
 clone_depth: 1
 # test_script:
 #   # restore packages for our unit tests
