@@ -12,6 +12,7 @@
       "commandName": "IISExpress",
       "launchBrowser": false,
       "environmentVariables": {
+        "EventStoreTableName": "eb-pecuniary-EventStore",
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },

@@ -10,10 +10,6 @@ namespace Pecuniary.Account.Data.Events
 
         public CreateAccountRequest Account { get; internal set; }
 
-        public AccountCreatedEvent() : base(nameof(AccountCreatedEvent), _eventVersion)
-        {
-        }
-
         public AccountCreatedEvent(Guid id, CreateAccountRequest account) : base(nameof(AccountCreatedEvent), _eventVersion)
         {
             Id = id;

@@ -41,7 +41,7 @@ namespace Pecuniary.Account.Command.Controllers
             return Ok(new CommandResponse {Id = id, Name = nameof(CreateAccountCommand) });
         }
 
-        // PUT api/acccount/5
+        // PUT api/account/5
         [HttpPut("{id}")]
         public ActionResult<CommandResponse> Put(Guid id, [FromBody] UpdateAccountRequest request)
         {
