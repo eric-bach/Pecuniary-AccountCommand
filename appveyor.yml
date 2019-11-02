@@ -19,7 +19,7 @@ build_script:
 after_build:
   # For once the build has completed
 artifacts:
- - path: *\bin\Debug\netcoreapp2.1\publish
+ - path: '*\bin\Debug\netcoreapp2.1\publish'
    name: artifact
    type: zip
 clone_depth: 1
