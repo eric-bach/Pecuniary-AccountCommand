@@ -28,7 +28,7 @@ test_script:
    - cmd: dotnet restore ./Pecuniary.Account.Tests/Pecuniary.Account.Tests.csproj --verbosity m
    # run the unit tests (requires changing into the test directory)
    - cmd: cd Pecuniary.Account.Tests
-   - cmd: dotnet xunit
+   - cmd: dotnet test
 on_finish :
   # any cleanup in here
 deploy: off
