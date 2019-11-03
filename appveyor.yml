@@ -13,6 +13,7 @@ before_build:
   - cmd: dotnet --version
   # Display minimal restore text
   - cmd: dotnet restore --verbosity m
+  - nuget restore
   - nuget install OpenCover -OutputDirectory packages -Version 4.6.519
 build_script:
   # output will be in ./src/bin/debug/netcoreapp1.1/publish
@@ -30,7 +31,7 @@ test_script:
    # run the unit tests (requires changing into the test directory)
    - cmd: cd Pecuniary.Account.Tests
    - cmd: dotnet test
-   - .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"test --logger:trx;LogFileName=results.trx /p:DebugType=full ./Pecuniary.Account.Tests/Pecuniary.Account.Tests.csproj " -output:"coverage.xml" -filter:"+[LetsDisc*]* -[Tests*]*"
+   - .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"test --logger:trx;LogFileName=results.trx /p:DebugType=full ./Pecuniary.Account.Tests/Pecuniary.Account.Tests.csproj " -output:"coverage.xml" -filter:"+[Pecuniary.Account.Command*]* -[Tests*]*"
 after_test:
   - ps: |
       $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
