@@ -10,8 +10,7 @@ The Account command microservice for the Pecuniary CQRS application
 ```
 The MIT License (MIT)
 
-Copyright (c) 2019 Eric Bach
-https://github.com/eric-bach/Pecuniary-AccountCommand
+Copyright (c) 2019-2020 Eric Bach
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
