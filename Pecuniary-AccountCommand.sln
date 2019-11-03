@@ -17,6 +17,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pecuniary.Account.Data", "P
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Pecuniary.Account.Command", "Pecuniary.Account.Command\Pecuniary.Account.Command.csproj", "{0EFE0EE8-B3EE-4761-9A9D-B25796FDCFCE}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Pecuniary.Account.Tests", "Pecuniary.Account.Tests\Pecuniary.Account.Tests.csproj", "{23C0C415-5644-42E2-98B8-46247420B076}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -31,6 +33,10 @@ Global
 		{0EFE0EE8-B3EE-4761-9A9D-B25796FDCFCE}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0EFE0EE8-B3EE-4761-9A9D-B25796FDCFCE}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{0EFE0EE8-B3EE-4761-9A9D-B25796FDCFCE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{23C0C415-5644-42E2-98B8-46247420B076}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{23C0C415-5644-42E2-98B8-46247420B076}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{23C0C415-5644-42E2-98B8-46247420B076}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{23C0C415-5644-42E2-98B8-46247420B076}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

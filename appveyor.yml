@@ -23,12 +23,12 @@ artifacts:
    name: artifact
    type: zip
 clone_depth: 1
-# test_script:
-#   # restore packages for our unit tests
-#   - cmd: dotnet restore ./tests/tests.csproj --verbosity m
-#   # run the unit tests (requires changing into the test directory)
-#   - cmd: cd tests
-#   - cmd: dotnet xunit
+ test_script:
+   # restore packages for our unit tests
+   - cmd: dotnet restore ./Pecuniary.Account.Tests/Pecuniary.Account.Tests.csproj --verbosity m
+   # run the unit tests (requires changing into the test directory)
+   - cmd: cd Pecuniary.Account.Tests
+   - cmd: dotnet xunit
 on_finish :
   # any cleanup in here
 deploy: off
