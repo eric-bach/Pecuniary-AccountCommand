@@ -30,13 +30,7 @@ test_script:
    # run the unit tests (requires changing into the test directory)
    - cmd: cd Pecuniary.Account.Tests
    - cmd: dotnet test
-   - .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe
--register:user
--target:"C:/Program Files/dotnet/dotnet.exe"
--targetargs:"test --logger:trx;LogFileName=results.trx
-/p:DebugType=full
-C:\projects\Pecuniary.Account.Command\Pecuniary.Account.Tests\Pecuniary.Account.Tests.csproj"
--output:"coverage.xml" -filter:"+[LetsDisc*]* -[Tests*]*"
+   - .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe -register:user -target:"C:/Program Files/dotnet/dotnet.exe" -targetargs:"test --logger:trx;LogFileName=results.trx /p:DebugType=full C:\projects\Pecuniary.Account.Command\Pecuniary.Account.Tests\Pecuniary.Account.Tests.csproj" -output:"coverage.xml" -filter:"+[LetsDisc*]* -[Tests*]*"
 after_test:
   - ps: |
       $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
