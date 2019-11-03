@@ -31,7 +31,7 @@ artifacts:
 clone_depth: 1
 test_script:
   # restore packages for our unit tests
-  - cmd: dotnet restore ./Pecuniary.Account.Tests/Pecuniary.Account.Tests.csproj --verbosity m
+  #- cmd: dotnet restore ./Pecuniary.Account.Tests/Pecuniary.Account.Tests.csproj --verbosity m
   # run the unit tests (requires changing into the test directory)
   #- cmd: cd Pecuniary.Account.Tests
   - OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:".\Pecuniary.Account.Tests\bin\Debug\netcoreapp2.1\Pecuniary.Account.Tests.dll -noshadow" -filter:"+[Pecuniary.Account.Command*]* -[Pecuniary.Account.Tests*]*" -output:".\MyProject_coverage.xml"
