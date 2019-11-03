@@ -13,6 +13,7 @@ before_build:
   - cmd: dotnet --version
   # Display minimal restore text
   - cmd: dotnet restore --verbosity m
+  - nuget install OpenCover -OutputDirectory packages -Version 4.6.519
 build_script:
   # output will be in ./src/bin/debug/netcoreapp1.1/publish
   - cmd: dotnet publish
@@ -24,11 +25,26 @@ artifacts:
    type: zip
 clone_depth: 1
 test_script:
-   # restore packages for our unit tests
+  # restore packages for our unit tests
    - cmd: dotnet restore ./Pecuniary.Account.Tests/Pecuniary.Account.Tests.csproj --verbosity m
    # run the unit tests (requires changing into the test directory)
    - cmd: cd Pecuniary.Account.Tests
    - cmd: dotnet test
+   - .\packages\OpenCover.4.6.519\tools\OpenCover.Console.exe
+-register:user
+-target:"C:/Program Files/dotnet/dotnet.exe"
+-targetargs:"test --logger:trx;LogFileName=results.trx
+/p:DebugType=full
+C:\projects\Pecuniary.Account.Command\Pecuniary.Account.Tests\Pecuniary.Account.Tests.csproj"
+-output:"coverage.xml" -filter:"+[LetsDisc*]* -[Tests*]*"
+after_test:
+  - ps: |
+      $env:PATH = 'C:\msys64\usr\bin;' + $env:PATH
+      Invoke-WebRequest -Uri 'https://codecov.io/bash' -OutFile codecov.sh
+      bash codecov.sh -f "coverage.xml"
 on_finish :
   # any cleanup in here
 deploy: off
+
+
+CODECOV_TOKEN="2ba56872-eb44-4180-ae2d-1fc19c4183e5"
