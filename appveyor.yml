@@ -17,7 +17,7 @@ before_build:
   - choco install opencover.portable
   - choco install codecov
 build:
-  project: Pecuniary.Account.Command.sln
+  project: Pecuniary-AccountCommand.sln
   verbosity: minimal
 #build_script:
   # output will be in ./src/bin/debug/netcoreapp1.1/publish
