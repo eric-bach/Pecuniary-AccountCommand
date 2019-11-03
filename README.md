@@ -1,8 +1,7 @@
 # Pecuniary-AccountCommand
 
 [![Build status](https://ci.appveyor.com/api/projects/status/fpiekn1niquf4ng2?svg=true)](https://ci.appveyor.com/project/eric-bach/pecuniary-accountcommand)
-[![codecov](https://codecov.io/gh/codingdefined/LetsDisc/branch/master/graph/badge.svg)](https://codecov.io/gh/codingdefined/LetsDisc)
-[![CodeFactor](https://www.codefactor.io/repository/github/codingdefined/letsdisc/badge)](https://www.codefactor.io/repository/github/codingdefined/letsdisc)
+[![codecov](https://codecov.io/gh/eric-bach/Pecuniary-AccountCommand/branch/master/graph/badge.svg)](https://codecov.io/gh/eric-bach/Pecuniary-AccountCommand)
 
 The Account command microservice for the Pecuniary CQRS application
 
