@@ -14,13 +14,8 @@ namespace Pecuniary.Account.Tests
 {
     public class AccountCommandTests
     {
-        [Theory]
-        [InlineData("LIRA")]
-        [InlineData("TSFA")]
-        [InlineData("RESP")]
-        [InlineData("RRSP")]
-        [InlineData("UnReg")]
-        public void ShouldCreateAccount(string accountTypeCode)
+        [Fact]
+        public void ShouldCreateAccountOnSuccess()
         {
             var mediatorMock = new Mock<IMediator>();
             mediatorMock.Setup(m => m.Send(It.IsAny<CreateAccountCommand>(), It.IsAny<CancellationToken>()));
@@ -30,23 +25,52 @@ namespace Pecuniary.Account.Tests
             var request = new CreateAccountRequest
             {
                 Name = "Test",
-                AccountTypeCode = accountTypeCode
+                AccountTypeCode = "Test"
             };
             
             // Act
             var response = controller.Post(request);
 
             // Assert
+            response.Result.Should().BeOfType<OkObjectResult>();
             var result = response.Result as OkObjectResult;
             result.Should().NotBe(null);
             var value = result.Value as CommandResponse;
 
-            response.Result.Should().BeOfType<OkObjectResult>();
             result.StatusCode.Should().Be(200);
             result.Value.Should().BeOfType<CommandResponse>();
             value.Name.Should().Be(nameof(CreateAccountCommand));
             value.Id.Should().NotBe(Guid.Empty);
             value.Error.Should().BeNullOrEmpty();
+        }
+
+        [Fact]
+        public void ShouldNotCreateAccountOnException()
+        {
+            var mediatorMock = new Mock<IMediator>();
+            mediatorMock.Setup(m => m.Send(It.IsAny<CreateAccountCommand>(), It.IsAny<CancellationToken>())).Throws(new Exception());
+
+            var controller = new AccountController(mediatorMock.Object);
+
+            var request = new CreateAccountRequest
+            {
+                Name = "Test",
+                AccountTypeCode = "Test"
+            };
+
+            // Act
+            var response = controller.Post(request);
+
+            // Assert
+            response.Result.Should().BeOfType<BadRequestObjectResult>();
+            var result = response.Result as BadRequestObjectResult;
+            result.Should().NotBe(null);
+            var value = result.Value as CommandResponse;
+
+            result.StatusCode.Should().Be(400);
+            value.Should().BeOfType<CommandResponse>();
+            value.Id.Should().Be(Guid.Empty);
+            value.Error.Should().NotBeNullOrEmpty();
         }
     }
 }

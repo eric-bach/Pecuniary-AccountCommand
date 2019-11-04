@@ -2,6 +2,7 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/fpiekn1niquf4ng2?svg=true)](https://ci.appveyor.com/project/eric-bach/pecuniary-accountcommand)
 [![codecov](https://codecov.io/gh/eric-bach/Pecuniary-AccountCommand/branch/master/graph/badge.svg)](https://codecov.io/gh/eric-bach/Pecuniary-AccountCommand)
+[![CodeFactor](https://www.codefactor.io/repository/github/eric-bach/pecuniary-accountcommand/badge)](https://www.codefactor.io/repository/github/eric-bach/pecuniary-accountcommand)
 
 The Account command microservice for the Pecuniary CQRS application
 
@@ -10,8 +11,7 @@ The Account command microservice for the Pecuniary CQRS application
 ```
 The MIT License (MIT)
 
-Copyright (c) 2019 Eric Bach
-https://github.com/eric-bach/Pecuniary-AccountCommand
+Copyright (c) 2019-2020 Eric Bach
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
