@@ -30,8 +30,8 @@ namespace Pecuniary.Account.Command.CommandHandlers
                 throw new Exception($"{command.Account.Name} is required");
 
             // TODO Figure out how to validate this from the "database" without making it a long synchronous call
-            if (string.IsNullOrEmpty(command.Account.AccountTypeCode) || command.Account.AccountTypeCode != "LIRA" && command.Account.AccountTypeCode != "TFSA" &&
-                command.Account.AccountTypeCode != "RESP" && command.Account.AccountTypeCode != "RRSP" && command.Account.AccountTypeCode != "Unreg")
+            if (string.IsNullOrEmpty(command.Account.AccountTypeCode) || (command.Account.AccountTypeCode != "LIRA" && command.Account.AccountTypeCode != "TFSA" &&
+                command.Account.AccountTypeCode != "RESP" && command.Account.AccountTypeCode != "RRSP" && command.Account.AccountTypeCode != "Unreg"))
                 throw new Exception($"Invalid {command.Account.AccountTypeCode}. Must be one of values [LIRA, RESP, RRSP, TFSA, UnReg]");
 
             var aggregate = new _Account(command.Id, command.Account);
@@ -55,8 +55,8 @@ namespace Pecuniary.Account.Command.CommandHandlers
                 throw new Exception($"{command.Account.Name} is required");
 
             // TODO Figure out how to validate this from the "database" without making it a long synchronous call
-            if (string.IsNullOrEmpty(command.Account.AccountTypeCode) || command.Account.AccountTypeCode != "LIRA" && command.Account.AccountTypeCode != "TFSA" &&
-                command.Account.AccountTypeCode != "RESP" && command.Account.AccountTypeCode != "RRSP" && command.Account.AccountTypeCode != "Unreg")
+            if (string.IsNullOrEmpty(command.Account.AccountTypeCode) || (command.Account.AccountTypeCode != "LIRA" && command.Account.AccountTypeCode != "TFSA" &&
+                command.Account.AccountTypeCode != "RESP" && command.Account.AccountTypeCode != "RRSP" && command.Account.AccountTypeCode != "Unreg"))
                 throw new Exception($"Invalid {command.Account.AccountTypeCode}. Must be one of values [LIRA, RESP, RRSP, TFSA, UnReg]");
 
             Logger.Log($"Looking for aggregate: {command.Id}");
@@ -81,7 +81,6 @@ namespace Pecuniary.Account.Command.CommandHandlers
             Logger.Log($"Completed saving {nameof(Account)} aggregate to event store");
 
             return Task.FromResult(cancellationToken);
-
         }
     }
 }
