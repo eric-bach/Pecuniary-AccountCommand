@@ -30,8 +30,13 @@ artifacts:
     type: zip
 clone_depth: 1
 test_script:
-  - OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:".\Pecuniary.Account.Tests\bin\Debug\netcoreapp2.1\publish\Pecuniary.Account.Tests.dll -noshadow" -filter:"+[Pecuniary.Account.Command*]* -[Pecuniary.Account.Tests*]*" -output:".\MyProject_coverage.xml"
-  - codecov -f "MyProject_coverage.xml"
+  #- OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:".\Pecuniary.Account.Tests\bin\Debug\netcoreapp2.1\publish\Pecuniary.Account.Tests.dll -noshadow" -filter:"+[Pecuniary.Account.Command*]* -[Pecuniary.Account.Tests*]*" -output:".\MyProject_coverage.xml"
+  - OpenCover.Console.exe -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test" -output:coverage.xml -oldStyle -filter:"+[Pecuniary.Account.Command*]* -[Pecuniary.Account.Tests*]*" -register:user
+  - codecov -f "MyProject_coverage.xml"  
 on_finish :
   # any cleanup in here
 deploy: off
+
+
+
+#C:\users\Eric\.nuget\packages\opencover\4.7.922\tools\OpenCover.Console.exe -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test" -output:coverage.xml -oldStyle -filter:"+[Pecuniary.Account.Command*]* -[Pecuniary.Account.Tests*]*" -register:user

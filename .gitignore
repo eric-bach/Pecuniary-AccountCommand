@@ -264,3 +264,6 @@ __pycache__/
 mo-*
 /samTemplate.yaml.local
 outfile.json
+
+# Code Coverage
+coverage.xml
