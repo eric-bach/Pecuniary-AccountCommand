@@ -25,13 +25,13 @@ before_build:
   - dotnet --version
   - dotnet restore --verbosity m
   - nuget restore
+  - choco install opencover.portable
+  - choco install codecov
 
 build_script:
   - dotnet publish
 
-after_build:
-  - choco install opencover.portable
-  - choco install codecov
+#after_build:
 
 # Tests configuration
 
@@ -40,12 +40,11 @@ test_script:
   - codecov -f "coverage.xml"
   - pwd
   - ls -l
-  - ls -l /c/projects/pecuniary-accountcommand/Pecuniary.Account.Command/bin/Debug/netcoreapp2.1/publish
 
 # Artifacts configuration
 
 artifacts:
-  - path: /c/projects/pecuniary-accountcommand/Pecuniary.Account.Command/bin/Debug/netcoreapp2.1/publish
+  - path: \Pecuniary.Account.Command\bin\Debug\netcoreapp2.1\publish
     name: artifact
     type: zip
 
