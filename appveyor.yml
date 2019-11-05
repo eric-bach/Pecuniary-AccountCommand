@@ -29,6 +29,11 @@ before_build:
 build_script:
   - dotnet publish
 
+artifacts:
+  - path: '\Pecuniary.Account.Command\bin\Debug\netcoreapp2.1\publish'
+    name: artifact
+    type: zip
+
 after_build:
   - choco install opencover.portable
   - choco install codecov
@@ -41,10 +46,7 @@ test_script:
 
 # Artifacts configuration
 
-artifacts:
-  - path: '\Pecuniary.Account.Command\bin\Debug\netcoreapp2.1\publish'
-    name: artifact
-    type: zip
+
 
 # Deployment configuration
 
