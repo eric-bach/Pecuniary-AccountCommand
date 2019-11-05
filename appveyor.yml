@@ -1,44 +1,3 @@
-# version: 1.0.{build}
-
-# skip_tags: true
-
-# image: Visual Studio 2019
-
-# branches:
-#   only:
-#   - master
-
-# clone_depth: 1
-
-# init:
-#   - cmd: git config --global core.autocrlf true
-
-# before_build:
-#   # Display .NET Core version
-#   - cmd: dotnet --version
-#   # Display minimal restore text
-#   - cmd: dotnet restore --verbosity m
-#   - nuget restore
-#   - choco install opencover.portable
-#   - choco install codecov
-
-# build_script:
-#   # output will be in ./src/bin/debug/netcoreapp1.1/publish
-#   - cmd: dotnet publish
-
-# artifacts:
-#   - path: '\Pecuniary.Account.Command\bin\Debug\netcoreapp2.1\publish'
-#     name: artifact
-#     type: zip
-
-# test_script:
-#   #- OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:".\Pecuniary.Account.Tests\bin\Debug\netcoreapp2.1\publish\Pecuniary.Account.Tests.dll -noshadow" -filter:"+[Pecuniary.Account.Command*]* -[Pecuniary.Account.Tests*]*" -output:".\MyProject_coverage.xml"
-#   #- codecov -f "MyProject_coverage.xml"  
-#   - OpenCover.Console.exe -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test" -output:coverage.xml -oldStyle -filter:"+[Pecuniary.Account.Command*]* -[Pecuniary.Account.Tests*]*" -register:user
-#   - codecov -f "coverage.xml"  
-
-# deploy: off
-
 # General configuration
 
 version: 1.0.{build}
@@ -64,13 +23,13 @@ before_build:
   - dotnet --version
   - dotnet restore --verbosity m
   - nuget restore
-  - choco install opencover.portable
-  - choco install codecov
 
 build_script:
   - dotnet publish
 
-#after_build:
+after_build:
+  - choco install opencover.portable
+  - choco install codecov
 
 # Tests configuration
 
