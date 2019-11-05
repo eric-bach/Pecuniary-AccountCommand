@@ -40,13 +40,12 @@ test_script:
   - codecov -f "coverage.xml"
   - pwd
   - ls -l
-  - ls -l Pecuniary.Account.Command/bin/Debug/netcoreapp2.1/publish  
-
+  - ls -l /c/projects/pecuniary-accountcommand/Pecuniary.Account.Command/bin/Debug/netcoreapp2.1/publish
 
 # Artifacts configuration
 
 artifacts:
-  - path: ./Pecuniary.Account.Command/bin/Debug/netcoreapp2.1/publish
+  - path: /c/projects/pecuniary-accountcommand/Pecuniary.Account.Command/bin/Debug/netcoreapp2.1/publish
     name: artifact
     type: zip
 
