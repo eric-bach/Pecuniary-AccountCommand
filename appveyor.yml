@@ -42,8 +42,6 @@ test_script:
     -filter:"+[Pecuniary.Account.Command*]* -[Pecuniary.Account.Tests*]*"
     -register:user
   - codecov -f "coverage.xml"
-  - pwd
-  - ls -l
 
 # Artifacts configuration
 
