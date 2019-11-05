@@ -42,7 +42,7 @@ test_script:
 # Artifacts configuration
 
 artifacts:
-  - path: '\**\bin\Debug\netcoreapp2.1\publish'
+  - path: \Pecuniary.Account.Command\bin\Debug\netcoreapp2.1\publish
     name: artifact
     type: zip
 
