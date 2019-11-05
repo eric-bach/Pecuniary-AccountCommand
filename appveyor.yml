@@ -29,11 +29,6 @@ before_build:
 build_script:
   - dotnet publish
 
-artifacts:
-  - path: '\Pecuniary.Account.Command\bin\Debug\netcoreapp2.1\publish'
-    name: artifact
-    type: zip
-
 after_build:
   - choco install opencover.portable
   - choco install codecov
@@ -42,11 +37,17 @@ after_build:
 
 test_script:
   - OpenCover.Console.exe -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test" -output:coverage.xml -oldStyle -filter:"+[Pecuniary.Account.Command*]* -[Pecuniary.Account.Tests*]*" -register:user
-  - codecov -f "coverage.xml"  
+  - codecov -f "coverage.xml"
+  - pwd
+  - ls -l
+
 
 # Artifacts configuration
 
-
+artifacts:
+  - path: '\Pecuniary.Account.Command\bin\Debug\netcoreapp2.1\publish'
+    name: artifact
+    type: zip
 
 # Deployment configuration
 
