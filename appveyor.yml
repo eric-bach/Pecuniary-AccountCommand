@@ -1,23 +1,29 @@
-init:
-  - git config --global core.autocrlf true
+# General configuration
 
 version: 1.0.{build}
-
-skip_tags: true
-
-image: Visual Studio 2019
 
 branches:
   only:
     - master
 
+skip_tags: true
+
+# Environment configuration
+
+image: Visual Studio 2019
+
+init:
+  - git config --global core.autocrlf true
+
 clone_depth: 1
+
+# Build configuration
+
+configuration: release
 
 before_build:
   - dotnet --version
   - dotnet restore --verbosity m
-
-on_success:
   - nuget restore
   - choco install opencover.portable
   - choco install codecov
@@ -25,15 +31,19 @@ on_success:
 build_script:
   - dotnet publish
 
+# Tests configuration
+
+test_script:
+  - OpenCover.Console.exe -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test" -output:coverage.xml -oldStyle -filter:"+[Pecuniary.Account.Command*]* -[Pecuniary.Account.Tests*]*" -register:user
+  - codecov -f "coverage.xml"  
+
+# Artifacts configuration
+
 artifacts:
   - path: '\Pecuniary.Account.Command\bin\Debug\netcoreapp2.1\publish'
     name: artifact
     type: zip
 
-test_script:
-  #- OpenCover.Console.exe -register:user -target:"%xunit20%\xunit.console.x86.exe" -targetargs:".\Pecuniary.Account.Tests\bin\Debug\netcoreapp2.1\publish\Pecuniary.Account.Tests.dll -noshadow" -filter:"+[Pecuniary.Account.Command*]* -[Pecuniary.Account.Tests*]*" -output:".\MyProject_coverage.xml"
-  #- codecov -f "MyProject_coverage.xml"  
-  - OpenCover.Console.exe -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test" -output:coverage.xml -oldStyle -filter:"+[Pecuniary.Account.Command*]* -[Pecuniary.Account.Tests*]*" -register:user
-  - codecov -f "coverage.xml"  
+# Deployment configuration
 
 deploy: off
