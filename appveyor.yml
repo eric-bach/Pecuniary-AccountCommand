@@ -19,8 +19,7 @@ before_build:
   - choco install codecov
 
 build_script:
-  # output will be in ./src/bin/debug/netcoreapp1.1/publish
-  - cmd: dotnet publish
+  - dotnet publish
 
 artifacts:
   - path: '\Pecuniary.Account.Command\bin\Debug\netcoreapp2.1\publish'
