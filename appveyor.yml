@@ -25,11 +25,13 @@ before_build:
   - dotnet --version
   - dotnet restore --verbosity m
   - nuget restore
-  - choco install opencover.portable
-  - choco install codecov
 
 build_script:
   - dotnet publish
+
+after_build:
+  - choco install opencover.portable
+  - choco install codecov
 
 # Tests configuration
 
