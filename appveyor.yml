@@ -1,19 +1,23 @@
+init:
+  - git config --global core.autocrlf true
+
 version: 1.0.{build}
+
+skip_tags: true
 
 image: Visual Studio 2019
 
 branches:
   only:
-  - master
+    - master
 
 clone_depth: 1
-
-init:
-  - git config --global core.autocrlf true
 
 before_build:
   - dotnet --version
   - dotnet restore --verbosity m
+
+on_success:
   - nuget restore
   - choco install opencover.portable
   - choco install codecov
