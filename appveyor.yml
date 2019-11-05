@@ -34,7 +34,13 @@ after_build:
 # Tests configuration
 
 test_script:
-  - OpenCover.Console.exe -target:"C:\Program Files\dotnet\dotnet.exe" -targetargs:"test" -output:coverage.xml -oldStyle -filter:"+[Pecuniary.Account.Command*]* -[Pecuniary.Account.Tests*]*" -register:user
+  - OpenCover.Console.exe
+    -target:"C:\Program Files\dotnet\dotnet.exe"
+    -targetargs:"test"
+    -output:coverage.xml
+    -oldStyle
+    -filter:"+[Pecuniary.Account.Command*]* -[Pecuniary.Account.Tests*]*"
+    -register:user
   - codecov -f "coverage.xml"
   - pwd
   - ls -l
