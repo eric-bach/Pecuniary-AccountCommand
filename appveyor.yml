@@ -60,7 +60,7 @@ artifacts:
 
 # Deployment configuration
 
-#deploy: off
+deploy: off
 
 # before_deploy:
 #   - ps: Write-Host "Installing AWS CLI..." -ForegroundColor Cyan
@@ -76,6 +76,3 @@ artifacts:
 #   - cmd: aws configure set aws_access_key_id %AWS_ACCESS_CLIENT_ID%
 #   - cmd: aws configure set aws_secret_access_key %AWS_SECRET_ACCESS_KEY%
 #   - deploySamTemplate.ps1
-
-deploy_script:
-    - test-deploy.ps1
