@@ -71,5 +71,7 @@ aws lambda invoke `
     outfile.json
 Remove-Item outfile.json
 
+# TODO Add deployment validations and return error code
+
 Write-Host "`n`n YOUR STACK NAME IS:   $stackName   `n`n"
  
