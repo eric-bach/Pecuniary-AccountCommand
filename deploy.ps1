@@ -67,6 +67,7 @@ Write-Host "`n`Adding Scopes to $apiGatewayBaseUrl"
 aws lambda invoke `
     --function-name "pecuniary-AddScopes" `
     --payload """{ """"ApiGatewayBaseUrl"""": """"$apiGatewayBaseUrl"""" }""" `
+    --region us-west-2 `
     outfile.json
 Remove-Item outfile.json
 
