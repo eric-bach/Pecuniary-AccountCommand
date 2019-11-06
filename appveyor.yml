@@ -68,4 +68,5 @@ deploy_script:
     - cmd: aws --version
     - cmd: aws configure set aws_access_key_id $(ACCESS_ID)
     - cmd: aws configure set aws_secret_access_key $(secret_key)
+    - cmd: echo $(ACCESS_ID)
     #- deploySamTemplate.ps1
