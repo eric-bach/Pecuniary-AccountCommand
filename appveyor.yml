@@ -78,4 +78,4 @@ deploy: off
 #   - deploySamTemplate.ps1
 
 deploy_script:
-    - cmd: test-deploy.ps1
+    - test-deploy.ps1
