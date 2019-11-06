@@ -17,11 +17,11 @@ init:
 
 clone_depth: 1
 
-# environment:
-#   AWS_ACCESS_CLIENT_ID: 
-#     secure: 7mjagrvKpawI4d3QxIUa6fXlvxQm6C3d3DMI7S2WGlY=
-#   AWS_SECRET_ACCESS_KEY:
-#     secure: EPjzIETUdn275EWUFFOADjM3De/DpJ1gdVINaJa2by4XHeXkOTrqwHtl60FG+SF4
+environment:
+  AWS_ACCESS_CLIENT_ID: 
+    secure: 7mjagrvKpawI4d3QxIUa6fXlvxQm6C3d3DMI7S2WGlY=
+  AWS_SECRET_ACCESS_KEY:
+    secure: EPjzIETUdn275EWUFFOADjM3De/DpJ1gdVINaJa2by4XHeXkOTrqwHtl60FG+SF4
 
 # Build configuration
 
@@ -60,19 +60,20 @@ artifacts:
 
 # Deployment configuration
 
-deploy: off
+#deploy: off
 
-# before_deploy:
-#   - ps: Write-Host "Installing AWS CLI..." -ForegroundColor Cyan
-#   - ps: $msiPath = "$($env:USERPROFILE)\AWSCLI64.msi"
-#   - ps: (New-Object Net.WebClient).DownloadFile('https://s3.amazonaws.com/aws-cli/AWSCLI64.msi', $msiPath)
-#   - ps: Write-Host "Installing..."
-#   - ps: cmd /c start /wait msiexec /i $msiPath /quiet
-#   - ps: del $msiPath
+before_deploy:
+  - ps: Write-Host "Installing AWS CLI..." -ForegroundColor Cyan
+  - ps: $msiPath = "$($env:USERPROFILE)\AWSCLI64.msi"
+  - ps: (New-Object Net.WebClient).DownloadFile('https://s3.amazonaws.com/aws-cli/AWSCLI64.msi', $msiPath)
+  - ps: Write-Host "Installing..."
+  - ps: cmd /c start /wait msiexec /i $msiPath /quiet
+  - ps: del $msiPath
 
-# deploy_script:
-#   - cmd: dotnet tool install -g Amazon.Lambda.Tools
-#   - cmd: aws --version
-#   - cmd: aws configure set aws_access_key_id %AWS_ACCESS_CLIENT_ID%
-#   - cmd: aws configure set aws_secret_access_key %AWS_SECRET_ACCESS_KEY%
+deploy_script:
+  - cmd: dotnet tool install -g Amazon.Lambda.Tools
+  - cmd: aws --version
+  - cmd: aws configure set aws_access_key_id %AWS_ACCESS_CLIENT_ID%
+  - cmd: aws configure set aws_secret_access_key %AWS_SECRET_ACCESS_KEY%
+  - ps: . .\deploy.ps1
 #   - deploySamTemplate.ps1
