@@ -17,6 +17,12 @@ init:
 
 clone_depth: 1
 
+environment:
+  AWS_ACCESS_CLIENT_ID: 
+    secure: 7mjagrvKpawI4d3QxIUa6fXlvxQm6C3d3DMI7S2WGlY=
+  AWS_SECRET_ACCESS_KEY:
+    secure: EPjzIETUdn275EWUFFOADjM3De/DpJ1gdVINaJa2by4XHeXkOTrqwHtl60FG+SF4
+
 # Build configuration
 
 configuration: Release
@@ -66,7 +72,7 @@ deploy_script:
     #- cmd: pip3 install awscli --upgrade --user
     - cmd: dotnet tool install -g Amazon.Lambda.Tools
     - cmd: aws --version
-    - cmd: aws configure set aws_access_key_id $(ACCESS_ID)
-    - cmd: aws configure set aws_secret_access_key $(secret_key)
-    - cmd: echo $(ACCESS_ID)
+    - cmd: aws configure set aws_access_key_id %AWS_ACCESS_CLIENT_ID%
+    - cmd: aws configure set aws_secret_access_key %AWS_SECRET_ACCESS_KEY%
+    - cmd: echo %AWS_ACCESS_CLIENT_ID%
     #- deploySamTemplate.ps1
