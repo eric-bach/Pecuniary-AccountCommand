@@ -18,7 +18,12 @@ init:
 clone_depth: 1
 
 install:
-  - cmd: install.ps1  
+  - ps: Write-Host "Installing AWS CLI..." -ForegroundColor Cyan
+  - ps: $msiPath = "$($env:USERPROFILE)\AWSCLI64.msi"
+  - ps: (New-Object Net.WebClient).DownloadFile('https://s3.amazonaws.com/aws-cli/AWSCLI64.msi', $msiPath)
+  - ps: Write-Host "Installing..."
+  - ps: cmd /c start /wait msiexec /i $msiPath /quiet
+  - ps: del $msiPath
 
 # Build configuration
 
