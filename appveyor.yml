@@ -66,6 +66,6 @@ deploy_script:
     #- cmd: pip3 install awscli --upgrade --user
     - cmd: dotnet tool install -g Amazon.Lambda.Tools
     - cmd: aws --version
-    #- cmd: aws configure set aws_access_key_id %access_id%
-    #- cmd: aws configure set aws_secret_access_key %secret_key%
+    - cmd: aws configure set aws_access_key_id $(ACCESS_ID)
+    - cmd: aws configure set aws_secret_access_key $(secret_key)
     #- deploySamTemplate.ps1
