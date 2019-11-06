@@ -47,7 +47,7 @@ Resources:
       FunctionName: pecuniary-AccountCommand
       Handler: Pecuniary.Account.Command::Pecuniary.Account.Command.LambdaEntryPoint::FunctionHandlerAsync
       Runtime: dotnetcore2.1
-      CodeUri: Pecuniary.Account.Command/bin/Debug/netcoreapp2.1/publish
+      CodeUri: Pecuniary.Account.Command/bin/Release/netcoreapp2.1/publish
       MemorySize: 384
       Policies:
         - Statement:

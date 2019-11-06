@@ -47,7 +47,7 @@ dotnet restore Pecuniary.Account.Command/Pecuniary.Account.Command.csproj
 
 Write-Host "`n`nBuild:"
 
-dotnet publish Pecuniary.Account.Command/Pecuniary.Account.Command.csproj
+dotnet publish -c Release Pecuniary.Account.Command/Pecuniary.Account.Command.csproj
   
 Write-Host "`n`nDeploy:"
 
