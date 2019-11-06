@@ -56,10 +56,9 @@ dotnet-lambda deploy-serverless `
     --template $samTemplate `
     --region us-west-2 `
     --s3-bucket pecuniary-deployment-artifacts
-    #--s3-prefix $developerPrefix- `
 
 # Get the API Gateway Base URL
-$stack = aws cloudformation describe-stacks --stack-name $stackName | ConvertFrom-Json
+$stack = aws cloudformation describe-stacks --stack-name $stackName --region us-west-2 | ConvertFrom-Json
 $outputKey = $stack.Stacks.Outputs.OutputKey.IndexOf("PecuniaryApiGatewayBaseUrl")
 $apiGatewayBaseUrl = $stack.Stacks.Outputs[$outputKey].OutputValue
 
