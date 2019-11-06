@@ -59,7 +59,7 @@ dotnet-lambda deploy-serverless `
     #--s3-prefix $developerPrefix- `
 
 # Get the API Gateway Base URL
-$stack = aws cloudformation describe-stacks --stack-name $stackName --region us-west-2 | ConvertFrom-Json
+$stack = aws cloudformation describe-stacks --stack-name $stackName | ConvertFrom-Json
 $outputKey = $stack.Stacks.Outputs.OutputKey.IndexOf("PecuniaryApiGatewayBaseUrl")
 $apiGatewayBaseUrl = $stack.Stacks.Outputs[$outputKey].OutputValue
 
@@ -68,7 +68,6 @@ Write-Host "`n`Adding Scopes to $apiGatewayBaseUrl"
 aws lambda invoke `
     --function-name "pecuniary-AddScopes" `
     --payload """{ """"ApiGatewayBaseUrl"""": """"$apiGatewayBaseUrl"""" }""" `
-    --region us-west-2 `
     outfile.json
 Remove-Item outfile.json
 
