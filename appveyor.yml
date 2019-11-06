@@ -60,7 +60,7 @@ artifacts:
 
 # Deployment configuration
 
-deploy: off
+#deploy: off
 
 # before_deploy:
 #   - ps: Write-Host "Installing AWS CLI..." -ForegroundColor Cyan
