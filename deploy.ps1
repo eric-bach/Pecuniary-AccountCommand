@@ -35,11 +35,11 @@ if ($config.Prefix)
 
     Write-Host "`n`nRestoring projects..." -ForegroundColor Cyan
 
-    dotnet restore Pecuniary.Account.Command/Pecuniary.Account.Command.csproj
+    dotnet restore
 
     Write-Host "`n`nBuilding projects..." -ForegroundColor Cyan
 
-    dotnet publish -c Release Pecuniary.Account.Command/Pecuniary.Account.Command.csproj
+    dotnet publish -c Release
 }
 
 Write-Host "`n`nDeploying stack $stackName..." -ForegroundColor Cyan
