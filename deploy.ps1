@@ -10,36 +10,29 @@ $developerPrefix = $config.Prefix
 $stackName = "pecuniary-accountcommand-stack"
 
 $sourceFile = "samTemplate.yaml"
-$localFileName = "$sourceFile.local"
-Write-Host "`nCreating/updating $localFileName based on $sourceFile..."
+$localSourceFile = "$sourceFile.local"
+Write-Host "`nCreating/updating $localSourceFile based on $sourceFile..."
+Copy-Item samTemplate.yaml $localSourceFile
 
 if ($config.Prefix)
 {  
     Write-Host "`n`tDeveloper config selected" -ForegroundColor Yellow
-
     Write-Host "`Parameters from " -NoNewline
     Write-Host "developers.json:`n" -ForegroundColor Cyan
     Write-Host "`tdeveloperPrefix: `t`t $developerPrefix" -ForegroundColor Yellow
 
-    $stackName = $developerPrefix-$stackName
+    $stackName = $developerPrefix + "-" + $stackName
 
-    (Get-Content $localFileName) `
+    (Get-Content $localSourceFile) `
         -replace 'pecuniary-', "$developerPrefix-pecuniary-" `
         -replace 'Name: pecuniary', "Name: $developerPrefix-pecuniary" |
-    Out-File $localFileName -Encoding utf8
-}
+    Out-File $localSourceFile -Encoding utf8
 
-Copy-Item samTemplate.yaml $localFileName
+    Write-Host "`nDone! $localSourceFile updated. Please use this file when deploying to our own AWS stack.`n"
 
-Write-Host "`nDone! $localFileName updated. Please use this file when deploying to our own AWS stack.`n"
-
-if ($config.Prefix) 
-{ 
     Write-Host "Press [enter] to continue deploying stack to AWS (Ctrl+C to exit)" -NoNewline -ForegroundColor Green
     Read-Host
 }
-
-$samTemplate = 'samTemplate.yaml.local'
 
 Write-Host "`n`nPrebuild:"
 
@@ -53,7 +46,7 @@ Write-Host "`n`nDeploy:"
 
 dotnet-lambda deploy-serverless `
     --stack-name $stackName `
-    --template $samTemplate `
+    --template $localSourceFile `
     --region us-west-2 `
     --s3-bucket pecuniary-deployment-artifacts
 
@@ -63,12 +56,16 @@ $outputKey = $stack.Stacks.Outputs.OutputKey.IndexOf("PecuniaryApiGatewayBaseUrl
 $apiGatewayBaseUrl = $stack.Stacks.Outputs[$outputKey].OutputValue
 
 # Add scopes
-Write-Host "`n`Adding Scopes to $apiGatewayBaseUrl"
+Write-Host "`n`Adding OAuth scopes"
 aws lambda invoke `
-    --function-name "pecuniary-AddScopes" `
+    --function-name "pecuniary-AddScopes1" `
     --payload """{ """"ApiGatewayBaseUrl"""": """"$apiGatewayBaseUrl"""" }""" `
     --region us-west-2 `
     outfile.json
+if ($lastexitcode -ne 0)
+{
+    throw "Could not add OAuth scopes"
+}
 Remove-Item outfile.json
 
 # TODO Add deployment validations and return error code
