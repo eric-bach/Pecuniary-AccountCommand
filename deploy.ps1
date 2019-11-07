@@ -33,16 +33,16 @@ if ($config.Prefix)
     Write-Host "Press [enter] to continue deploying stack to AWS (Ctrl+C to exit)" -NoNewline -ForegroundColor Green
     Read-Host
 
-    Write-Host "`n`nPrebuild:" -ForegroundColor Cyan
+    Write-Host "`n`nRestoring projects..." -ForegroundColor Cyan
 
     dotnet restore Pecuniary.Account.Command/Pecuniary.Account.Command.csproj
 
-    Write-Host "`n`nBuild:" -ForegroundColor Cyan
+    Write-Host "`n`nBuilding projects..." -ForegroundColor Cyan
 
     dotnet publish -c Release Pecuniary.Account.Command/Pecuniary.Account.Command.csproj
 }
 
-Write-Host "`n`nDeploy:" -ForegroundColor Cyan
+Write-Host "`n`nDeploying stack $stackName..." -ForegroundColor Cyan
 
 dotnet-lambda deploy-serverless `
     --stack-name $stackName `
@@ -61,7 +61,7 @@ $outputKey = $stack.Stacks.Outputs.OutputKey.IndexOf("PecuniaryApiGatewayBaseUrl
 $apiGatewayBaseUrl = $stack.Stacks.Outputs[$outputKey].OutputValue
 
 # Add scopes
-Write-Host "`n`Adding OAuth scopes"
+Write-Host "`n`Adding OAuth scopes..."
 aws lambda invoke `
     --function-name "pecuniary-AddScopes" `
     --payload """{ """"ApiGatewayBaseUrl"""": """"$apiGatewayBaseUrl"""" }""" `
@@ -74,6 +74,5 @@ if ($lastexitcode -ne 0) {
 }
 Remove-Item outfile.json
 
-Write-Host "`n`n YOUR STACK NAME IS:   "
+Write-Host "`n`n YOUR STACK NAME IS:   " -NoNewLine
 Write-Host "$stackName   `n`n" -ForegroundColor Cyan
- 

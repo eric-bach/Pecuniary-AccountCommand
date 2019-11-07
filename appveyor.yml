@@ -62,8 +62,6 @@ artifacts:
 
 # Deployment configuration
 
-#deploy: off
-
 before_deploy:
   - ps: Write-Host "Installing AWS CLI..."
   - ps: $msiPath = "$($env:USERPROFILE)\AWSCLI64.msi"
@@ -78,4 +76,5 @@ deploy_script:
   - cmd: aws configure set aws_access_key_id %AWS_ACCESS_CLIENT_ID%
   - cmd: aws configure set aws_secret_access_key %AWS_SECRET_ACCESS_KEY%
   - cmd: aws configure set region $AWS_REGION%
+  - ps: Write-Host "Execute deploy script..."
   - ps: . .\deploy.ps1
