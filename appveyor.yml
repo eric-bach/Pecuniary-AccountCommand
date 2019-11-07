@@ -50,6 +50,7 @@ test_script:
     -oldStyle
     -filter:"+[Pecuniary.Account.Command*]* -[Pecuniary.Account.Tests*]*"
     -register:user
+  - ps: Write-Host $lastexitcode
   - codecov -f "coverage.xml"
 
 # Artifacts configuration
