@@ -37,7 +37,7 @@ namespace Pecuniary.Account.Tests
             result.Should().NotBe(null);
             var value = result.Value as CommandResponse;
 
-            result.StatusCode.Should().Be(400);
+            result.StatusCode.Should().Be(300);
             result.Value.Should().BeOfType<CommandResponse>();
             value.Name.Should().Be(nameof(CreateAccountCommand));
             value.Id.Should().NotBe(Guid.Empty);
