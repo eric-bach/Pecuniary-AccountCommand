@@ -50,6 +50,11 @@ dotnet-lambda deploy-serverless `
     --region us-west-2 `
     --s3-bucket pecuniary-deployment-artifacts
 
+# Handle errors
+if ($lastexitcode -ne 0) {
+    throw "Error deploying" + $stackName
+}
+
 # Get the API Gateway Base URL
 $stack = aws cloudformation describe-stacks --stack-name $stackName --region us-west-2 | ConvertFrom-Json
 $outputKey = $stack.Stacks.Outputs.OutputKey.IndexOf("PecuniaryApiGatewayBaseUrl")
@@ -58,17 +63,16 @@ $apiGatewayBaseUrl = $stack.Stacks.Outputs[$outputKey].OutputValue
 # Add scopes
 Write-Host "`n`Adding OAuth scopes"
 aws lambda invoke `
-    --function-name "pecuniary-AddScopes1" `
+    --function-name "pecuniary-AddScopes" `
     --payload """{ """"ApiGatewayBaseUrl"""": """"$apiGatewayBaseUrl"""" }""" `
     --region us-west-2 `
     outfile.json
-if ($lastexitcode -ne 0)
-{
-    throw "Could not add OAuth scopes"
+
+# Handle errors
+if ($lastexitcode -ne 0) {
+    throw "Error adding OAuth scopes"
 }
 Remove-Item outfile.json
-
-# TODO Add deployment validations and return error code
 
 Write-Host "`n`n YOUR STACK NAME IS:   $stackName   `n`n"
  
