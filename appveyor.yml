@@ -50,8 +50,9 @@ test_script:
     -oldStyle
     -filter:"+[Pecuniary.Account.Command*]* -[Pecuniary.Account.Tests*]*"
     -register:user
+    -returntargetcode
   - cmd: echo $LastExitCode
-  - cmd: if($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode )  }
+  - ps: if($LastExitCode -ne 0) { $host.SetShouldExit($LastExitCode )  }
   - codecov -f "coverage.xml"
 
 # Artifacts configuration
