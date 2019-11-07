@@ -34,15 +34,15 @@ if ($config.Prefix)
     Read-Host
 }
 
-Write-Host "`n`nPrebuild:"
+#Write-Host "`n`nPrebuild:"
 
-dotnet restore Pecuniary.Account.Command/Pecuniary.Account.Command.csproj
+#dotnet restore Pecuniary.Account.Command/Pecuniary.Account.Command.csproj
 
-Write-Host "`n`nBuild:"
+#Write-Host "`n`nBuild:"
 
-dotnet publish -c Release Pecuniary.Account.Command/Pecuniary.Account.Command.csproj
+#dotnet publish -c Release Pecuniary.Account.Command/Pecuniary.Account.Command.csproj
   
-Write-Host "`n`nDeploy:"
+#Write-Host "`n`nDeploy:"
 
 dotnet-lambda deploy-serverless `
     --stack-name $stackName `
