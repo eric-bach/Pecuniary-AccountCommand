@@ -64,18 +64,17 @@ artifacts:
 #deploy: off
 
 before_deploy:
-  - ps: Write-Host "Installing AWS CLI..." -ForegroundColor Cyan
+  - ps: Write-Host "Installing AWS CLI..."
   - ps: $msiPath = "$($env:USERPROFILE)\AWSCLI64.msi"
   - ps: (New-Object Net.WebClient).DownloadFile('https://s3.amazonaws.com/aws-cli/AWSCLI64.msi', $msiPath)
-  - ps: Write-Host "Installing..."
   - ps: cmd /c start /wait msiexec /i $msiPath /quiet
   - ps: del $msiPath
+  - cmd: aws --version
 
 deploy_script:
+  - ps: Write-Host "Installing AWS extensions for dotnet CLI..."
   - cmd: dotnet tool install -g Amazon.Lambda.Tools
-  - cmd: aws --version
   - cmd: aws configure set aws_access_key_id %AWS_ACCESS_CLIENT_ID%
   - cmd: aws configure set aws_secret_access_key %AWS_SECRET_ACCESS_KEY%
   - cmd: aws configure set region $AWS_REGION%
   - ps: . .\deploy.ps1
-#   - deploySamTemplate.ps1
