@@ -32,17 +32,17 @@ if ($config.Prefix)
 
     Write-Host "Press [enter] to continue deploying stack to AWS (Ctrl+C to exit)" -NoNewline -ForegroundColor Green
     Read-Host
+
+    Write-Host "`n`nPrebuild:" -ForegroundColor Cyan
+
+    dotnet restore Pecuniary.Account.Command/Pecuniary.Account.Command.csproj
+
+    Write-Host "`n`nBuild:" -ForegroundColor Cyan
+
+    dotnet publish -c Release Pecuniary.Account.Command/Pecuniary.Account.Command.csproj
 }
 
-#Write-Host "`n`nPrebuild:"
-
-#dotnet restore Pecuniary.Account.Command/Pecuniary.Account.Command.csproj
-
-#Write-Host "`n`nBuild:"
-
-#dotnet publish -c Release Pecuniary.Account.Command/Pecuniary.Account.Command.csproj
-  
-#Write-Host "`n`nDeploy:"
+Write-Host "`n`nDeploy:" -ForegroundColor Cyan
 
 dotnet-lambda deploy-serverless `
     --stack-name $stackName `
@@ -50,7 +50,7 @@ dotnet-lambda deploy-serverless `
     --region us-west-2 `
     --s3-bucket pecuniary-deployment-artifacts
 
-# Handle errors
+# Handle deploy errors
 if ($lastexitcode -ne 0) {
     throw "Error deploying" + $stackName
 }
@@ -68,11 +68,12 @@ aws lambda invoke `
     --region us-west-2 `
     outfile.json
 
-# Handle errors
+# Handle add scope errors
 if ($lastexitcode -ne 0) {
     throw "Error adding OAuth scopes"
 }
 Remove-Item outfile.json
 
-Write-Host "`n`n YOUR STACK NAME IS:   $stackName   `n`n"
+Write-Host "`n`n YOUR STACK NAME IS:   "
+Write-Host "$stackName   `n`n" -ForegroundColor Cyan
  
