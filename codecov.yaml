@@ -2,5 +2,5 @@ codecov:
   require_ci_to_pass: yes
 
 ignore:
-  - "LambdaEntryPoint.cs"
-  - "LocalEntryPoint.cs"
+  - "Pecuniary.Account.Command/LambdaEntryPoint.cs"
+  - "Pecuniary.Account.Command/LocalEntryPoint.cs"
